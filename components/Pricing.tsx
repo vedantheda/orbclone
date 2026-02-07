@@ -1,179 +1,195 @@
 'use client'
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Check, ArrowUpRight, Star } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { ArrowUpRight, Check, Calendar, ChevronRight } from 'lucide-react'
+
+const AnimatedNumber = ({ target, inView }: { target: number; inView: boolean }) => {
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    if (!inView) return
+    const duration = 1200
+    const steps = 50
+    const increment = target / steps
+    let current = 0
+
+    const timer = setInterval(() => {
+      current += increment
+      if (current >= target) {
+        setCount(target)
+        clearInterval(timer)
+      } else {
+        setCount(Math.floor(current))
+      }
+    }, duration / steps)
+
+    return () => clearInterval(timer)
+  }, [inView, target])
+
+  return <>{count}</>
+}
+
+const pipelineStages = [
+  {
+    number: 500,
+    suffix: '+',
+    label: 'Prospects Targeted',
+    bg: 'linear-gradient(145deg, #ffffff, #ececec)',
+    shadow: '4px 4px 10px rgba(0,0,0,0.06), -4px -4px 10px rgba(255,255,255,0.8)',
+    textColor: '#171717',
+    labelColor: '#737373',
+  },
+  {
+    number: 120,
+    suffix: '+',
+    label: 'Qualified Leads',
+    bg: 'linear-gradient(145deg, #f0f0f0, #e0e0e0)',
+    shadow: '4px 4px 10px rgba(0,0,0,0.06), -4px -4px 10px rgba(255,255,255,0.7)',
+    textColor: '#171717',
+    labelColor: '#737373',
+  },
+  {
+    number: 35,
+    suffix: '+',
+    label: 'Booked Appointments',
+    bg: 'linear-gradient(145deg, #404040, #2a2a2a)',
+    shadow: '4px 4px 12px rgba(0,0,0,0.15), -2px -2px 8px rgba(255,255,255,0.05)',
+    textColor: '#ffffff',
+    labelColor: '#a3a3a3',
+  },
+  {
+    number: 12,
+    suffix: '+',
+    label: 'New Clients',
+    bg: 'linear-gradient(145deg, #262626, #171717)',
+    shadow: '4px 4px 16px rgba(0,0,0,0.2), -2px -2px 8px rgba(255,255,255,0.03)',
+    textColor: '#ffffff',
+    labelColor: '#a3a3a3',
+  },
+]
 
 const Pricing = () => {
-  const [isYearly, setIsYearly] = useState(false)
+  const pipelineRef = useRef(null)
+  const isInView = useInView(pipelineRef, { once: true, margin: '-100px' })
 
-  const plans = [
-    {
-      name: 'Starter',
-      monthlyPrice: 800,
-      yearlyPrice: 560,
-      description: 'Ideal for businesses ready to explore AI and intelligent automation',
-      features: [
-        'Basic AI Tools',
-        'Limited Automation Features',
-        'Real-Time Reporting',
-        'Basic Chatbot Integration',
-      ],
-      popular: false,
-    },
-    {
-      name: 'Pro',
-      monthlyPrice: 1700,
-      yearlyPrice: 1190,
-      description: 'Built for companies that want to gain an edge with AI-powered automation',
-      features: [
-        'Advanced AI Tools',
-        'Customizable Workflows',
-        'AI-Powered Analytics',
-        'Premium Chatbot Features',
-        'Cross-Platform Integrations',
-      ],
-      popular: true,
-    },
-    {
-      name: 'Enterprise',
-      monthlyPrice: 4700,
-      yearlyPrice: 3290,
-      description: 'For businesses aiming to harness AI and automation to lead their industry',
-      features: [
-        'Fully Customized AI Solutions',
-        'Unlimited Integrations',
-        'Advanced Reporting & Insights',
-        'Scalable AI Solutions',
-        'Team Collaboration Features',
-        'Priority Feature Access',
-      ],
-      popular: false,
-    },
+  const benefits = [
+    'Growth strategy tailored to your market',
+    'Full campaign strategy, setup, and management',
+    'Ongoing optimization aligned to your close rate',
+    'Dedicated team and weekly strategy sessions',
+    'No long-term contracts—results earn your business',
   ]
 
   return (
-    <section id="pricing" className="py-24 px-6 bg-[#f5f5f5]">
-      <div className="max-w-6xl mx-auto">
+    <section id="get-started" className="py-24 px-6 bg-[#f5f5f5]">
+      <div className="max-w-4xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center mb-12"
         >
           <div className="badge mb-6 mx-auto">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="12" y1="1" x2="12" y2="23"/>
-              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-            </svg>
-            <span>PRICING</span>
+            <Calendar className="w-4 h-4" />
+            <span>GET STARTED</span>
           </div>
-          <h2 className="section-title mb-4">Simple Price For All</h2>
+          <h2 className="section-title-gradient mb-4">Ready to Own Your Growth?</h2>
           <p className="section-subtitle mx-auto">
-            Flexible pricing plans that fit your budget & scale with needs.
+            Every business is different. Let&apos;s map out your growth opportunity and design a strategy tailored to your goals.
           </p>
         </motion.div>
 
-        {/* Toggle */}
-        <div className="flex justify-center mb-12">
-          <div className="inline-flex items-center p-1 bg-white rounded-full border border-[#e5e5e5]">
-            <button
-              onClick={() => setIsYearly(false)}
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${
-                !isYearly ? 'bg-[#171717] text-white' : 'text-[#737373] hover:text-[#171717]'
-              }`}
-            >
-              Monthly
-            </button>
-            <button
-              onClick={() => setIsYearly(true)}
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
-                isYearly ? 'bg-[#171717] text-white' : 'text-[#737373] hover:text-[#171717]'
-              }`}
-            >
-              Yearly
-              <span className={`text-xs px-2 py-0.5 rounded-full ${isYearly ? 'bg-white/20' : 'bg-[#171717] text-white'}`}>
-                30% off
-              </span>
-            </button>
-          </div>
-        </div>
-
-        {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
-          {plans.map((plan, index) => (
-            <motion.div
-              key={plan.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`card p-8 relative ${plan.popular ? 'ring-2 ring-[#171717] ring-inset' : ''}`}
-            >
-              {/* Popular badge - inline next to plan name */}
-              {plan.popular && (
-                <div className="absolute top-8 right-8">
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-[#171717] text-white text-xs font-medium rounded-full">
-                    <Star className="w-3 h-3 fill-white" />
-                    Popular
-                  </div>
-                </div>
-              )}
-
-              {/* Plan name */}
-              <h3 className="text-lg font-semibold text-[#171717] mb-4">{plan.name}</h3>
-
-              {/* Price */}
-              <div className="flex items-baseline gap-1 mb-4">
-                <span className="text-4xl font-bold text-[#171717]">
-                  ${isYearly ? plan.yearlyPrice : plan.monthlyPrice}
-                </span>
-                <span className="text-[#737373]">/month</span>
-              </div>
-
-              {/* Description */}
-              <p className="text-sm text-[#737373] mb-6">{plan.description}</p>
-
-              {/* CTA */}
-              <a
-                href="#contact"
-                className={`w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl text-sm font-medium transition-all mb-6 ${
-                  plan.popular
-                    ? 'bg-[#171717] text-white hover:bg-[#2a2a2a]'
-                    : 'bg-white text-[#171717] border border-[#e5e5e5] hover:border-[#171717]'
-                }`}
-              >
-                Get Started
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
-
-              {/* Features */}
-              <ul className="space-y-3">
-                {plan.features.map((feature, i) => (
-                  <li key={i} className="flex items-center gap-3 text-sm text-[#737373]">
-                    <Check className="w-4 h-4 text-[#171717]" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Donation note */}
+        {/* Pipeline Projection */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          ref={pipelineRef}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex items-center justify-center gap-3 text-sm text-[#737373]"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="card p-8 md:p-10 mb-8"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-          </svg>
-          We donate 2% of your membership to pediatric wellbeing
+          <h3 className="text-lg font-bold text-[#171717] text-center mb-2">Your Pipeline Projection</h3>
+          <p className="text-sm text-[#737373] text-center mb-8">Here&apos;s what your first 90 days could look like</p>
+
+          <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-2">
+            {pipelineStages.map((stage, index) => (
+              <div key={stage.label} className="flex flex-col md:flex-row items-center gap-3 md:gap-2">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.12 }}
+                  className="rounded-2xl px-6 py-5 text-center min-w-[140px]"
+                  style={{
+                    background: stage.bg,
+                    boxShadow: stage.shadow,
+                  }}
+                >
+                  <p className="text-2xl font-bold mb-1" style={{ color: stage.textColor }}>
+                    <AnimatedNumber target={stage.number} inView={isInView} />{stage.suffix}
+                  </p>
+                  <p className="text-xs font-medium" style={{ color: stage.labelColor }}>{stage.label}</p>
+                </motion.div>
+                {index < pipelineStages.length - 1 && (
+                  <ChevronRight
+                    className="w-5 h-5 text-[#a3a3a3] rotate-90 md:rotate-0 flex-shrink-0"
+                    strokeWidth={2}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+
+          <p className="text-xs text-[#a3a3a3] text-center mt-6">
+            * Average projected results. Actual outcomes vary by market, offer, and engagement.
+          </p>
+        </motion.div>
+
+        {/* Single CTA Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="card p-8 md:p-12 text-center"
+          style={{ border: '2px solid #171717' }}
+        >
+          <h3 className="text-2xl md:text-3xl font-bold text-[#171717] mb-4">
+            Book Your Strategy Call
+          </h3>
+          <p className="text-[#737373] mb-8 max-w-lg mx-auto">
+            In 30 minutes, we&apos;ll map your growth opportunity and design a tailored acquisition strategy around your business goals.
+          </p>
+
+          {/* Benefits */}
+          <div className="grid sm:grid-cols-2 gap-4 mb-10 max-w-xl mx-auto text-left">
+            {benefits.map((benefit, index) => (
+              <div key={index} className="flex items-center gap-3">
+                <div className="w-5 h-5 rounded-full bg-[#171717] flex items-center justify-center flex-shrink-0">
+                  <Check className="w-3 h-3 text-white" />
+                </div>
+                <span className="text-sm text-[#737373]">{benefit}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA Button */}
+          <a
+            href="https://tidycal.com/pmdigital/30-minute-meeting"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-btn-primary py-4 px-8 text-base"
+          >
+            Book a Strategy Call
+            <ArrowUpRight className="w-5 h-5" />
+          </a>
+
+          <p className="text-xs text-[#a3a3a3] mt-4">
+            No commitment required. See if we&apos;re a good fit.
+          </p>
         </motion.div>
       </div>
     </section>

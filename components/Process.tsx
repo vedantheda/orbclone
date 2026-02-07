@@ -1,39 +1,39 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Search, Rocket, Headphones } from 'lucide-react'
+import { Search, Send, TrendingUp } from 'lucide-react'
 
 const Process = () => {
   const steps = [
     {
       number: '01',
       icon: Search,
-      title: 'Workflow Assessment',
-      description: 'We begin by examining your existing workflows to identify where AI can deliver the greatest impact.',
+      title: 'Lead Finder Pro',
+      description: 'Our team builds a proprietary prospect database of 3,000+ verified decision-makers in your target market. Your pipeline, your data.',
     },
     {
       number: '02',
-      icon: Rocket,
-      title: 'Deploy with Confidence',
-      description: 'Our team develops custom AI systems built around your goals, ensuring safe and reliable deployment.',
+      icon: Send,
+      title: 'Outreach AI',
+      description: 'Strategically sequenced outreach designed with you—not mass emails, but personalized conversations that build trust and drive replies.',
     },
     {
       number: '03',
-      icon: Headphones,
-      title: 'Ongoing Support & Optimization',
-      description: 'After deployment, we provide support and refine your AI systems to keep them performing at their best.',
+      icon: TrendingUp,
+      title: 'Sales Accelerator',
+      description: 'Continuous optimization of every touchpoint to maximize what matters: your close rate. We\'re not done when you get a lead—we\'re done when you close the deal.',
     },
   ]
 
   return (
-    <section className="py-24 px-6 bg-[#f5f5f5]">
+    <section id="process" className="py-24 px-6 bg-[#f5f5f5]">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-16"
         >
           <div className="badge mb-6 mx-auto">
@@ -42,9 +42,9 @@ const Process = () => {
             </svg>
             <span>PROCESS</span>
           </div>
-          <h2 className="section-title mb-4">Simple & Scalable</h2>
+          <h2 className="section-title-gradient mb-4">How It Works</h2>
           <p className="section-subtitle mx-auto">
-            A transparent process of collaboration and feedback
+            A proven 3-step engine that fills your calendar with qualified appointments
           </p>
         </motion.div>
 
@@ -52,16 +52,16 @@ const Process = () => {
         <div className="space-y-6">
           {/* First Step - Full Width */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="card p-8 md:p-10 relative overflow-hidden"
           >
             <div className="flex flex-col md:flex-row md:items-start gap-6">
               {/* Icon */}
-              <div className="w-14 h-14 rounded-2xl bg-[#f5f5f5] flex items-center justify-center flex-shrink-0">
-                <Search className="w-6 h-6 text-[#171717]" />
+              <div className="icon-box-neu flex-shrink-0">
+                <Search className="w-6 h-6" />
               </div>
 
               {/* Content */}
@@ -73,7 +73,7 @@ const Process = () => {
 
             {/* Step Number */}
             <div className="absolute bottom-4 right-6 md:bottom-6 md:right-8">
-              <span className="text-7xl md:text-8xl font-bold text-[#f0f0f0] select-none">{steps[0].number}</span>
+              <span className="text-7xl md:text-8xl font-bold select-none" style={{ background: 'linear-gradient(180deg, #e8e8e8, #f5f5f5)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{steps[0].number}</span>
             </div>
           </motion.div>
 
@@ -82,15 +82,15 @@ const Process = () => {
             {steps.slice(1).map((step, index) => (
               <motion.div
                 key={step.number}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: (index + 1) * 0.1 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.12 }}
                 className="card p-8 relative overflow-hidden"
               >
                 {/* Icon */}
-                <div className="w-14 h-14 rounded-2xl bg-[#f5f5f5] flex items-center justify-center mb-6">
-                  <step.icon className="w-6 h-6 text-[#171717]" />
+                <div className="icon-box-neu mb-6">
+                  <step.icon className="w-6 h-6" />
                 </div>
 
                 {/* Content */}
@@ -99,7 +99,7 @@ const Process = () => {
 
                 {/* Step Number */}
                 <div className="absolute bottom-4 right-6">
-                  <span className="text-7xl md:text-8xl font-bold text-[#f0f0f0] select-none">{step.number}</span>
+                  <span className="text-7xl md:text-8xl font-bold select-none" style={{ background: 'linear-gradient(180deg, #e0e0e0, #f0f0f0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{step.number}</span>
                 </div>
               </motion.div>
             ))}

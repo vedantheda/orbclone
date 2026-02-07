@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Star } from 'lucide-react'
-import Image from 'next/image'
 
 // Animated counter for stats
 const AnimatedStat = ({ value, label }: { value: string; label: string }) => {
@@ -11,14 +10,16 @@ const AnimatedStat = ({ value, label }: { value: string; label: string }) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
 
-  // Parse the numeric part
-  const numericValue = parseInt(value.replace(/[^0-9]/g, ''))
-  const suffix = value.replace(/[0-9]/g, '')
+  // Parse prefix (e.g. "$"), numeric part, and suffix (e.g. "M+")
+  const match = value.match(/^(\D*)(\d+)(.*)$/)
+  const prefix = match ? match[1] : ''
+  const numericValue = match ? parseInt(match[2], 10) : 0
+  const suffix = match ? match[3] : ''
 
   useEffect(() => {
     if (isInView) {
-      const duration = 2000
-      const steps = 60
+      const duration = 800
+      const steps = 40
       const increment = numericValue / steps
       let current = 0
 
@@ -39,7 +40,7 @@ const AnimatedStat = ({ value, label }: { value: string; label: string }) => {
   return (
     <div ref={ref} className="text-center">
       <p className="text-3xl md:text-4xl font-bold text-[#171717] mb-2">
-        {count}{suffix}
+        {prefix}{count}{suffix}
       </p>
       <p className="text-sm text-[#737373]">{label}</p>
     </div>
@@ -50,15 +51,16 @@ const AnimatedStat = ({ value, label }: { value: string; label: string }) => {
 const AnimatedTestimonialWord = ({ word, index, isHighlight }: { word: string; index: number; isHighlight: boolean }) => {
   return (
     <motion.span
-      initial={{ opacity: 0.3 }}
-      whileInView={{ opacity: 1 }}
+      initial={{ opacity: 0.2, filter: 'blur(8px)' }}
+      whileInView={{ opacity: 1, filter: 'blur(0px)' }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{
-        duration: 0.4,
-        delay: index * 0.04,
-        ease: [0.25, 0.1, 0.25, 1]
+        duration: 0.3,
+        delay: index * 0.02,
+        ease: [0.2, 0, 0.2, 1]
       }}
       className={isHighlight ? 'text-[#171717] font-semibold' : ''}
+      style={{ display: 'inline-block' }}
     >
       {word}
     </motion.span>
@@ -68,72 +70,68 @@ const AnimatedTestimonialWord = ({ word, index, isHighlight }: { word: string; i
 const Testimonials = () => {
   // Featured testimonial words with highlights
   const featuredWords = [
-    { text: 'Their', highlight: false },
-    { text: 'AI-driven', highlight: false },
-    { text: 'approach', highlight: false },
-    { text: 'helped', highlight: false },
-    { text: 'us', highlight: false },
-    { text: 'reach', highlight: false },
-    { text: 'the', highlight: false },
-    { text: 'right', highlight: false },
-    { text: 'audience', highlight: false },
-    { text: 'and', highlight: false },
-    { text: 'grow', highlight: true },
-    { text: 'faster', highlight: true },
+    { text: 'Was', highlight: false },
+    { text: 'a', highlight: false },
+    { text: 'pleasure', highlight: false },
+    { text: 'working', highlight: false },
     { text: 'with', highlight: false },
-    { text: 'smarter', highlight: false },
-    { text: 'insights—streamlining', highlight: false },
-    { text: 'our', highlight: false },
-    { text: 'strategy,', highlight: false },
-    { text: 'improving', highlight: false },
-    { text: 'engagement,', highlight: false },
+    { text: 'them,', highlight: false },
+    { text: 'underpromised', highlight: true },
     { text: 'and', highlight: false },
-    { text: 'delivering', highlight: true },
-    { text: 'results', highlight: true },
-    { text: 'we', highlight: false },
-    { text: "couldn't", highlight: false },
-    { text: 'achieve', highlight: false },
-    { text: 'before.', highlight: false },
+    { text: 'over', highlight: true },
+    { text: 'delivered.', highlight: true },
+    { text: 'Booked', highlight: false },
+    { text: 'out', highlight: false },
+    { text: 'for', highlight: false },
+    { text: 'installations', highlight: false },
+    { text: 'right', highlight: false },
+    { text: 'now.', highlight: false },
+    { text: 'Let\'s', highlight: false },
+    { text: 'see', highlight: false },
+    { text: 'what', highlight: false },
+    { text: 'the', highlight: false },
+    { text: 'future', highlight: true },
+    { text: 'brings.', highlight: true },
   ]
   const testimonials = [
     {
-      quote: 'We needed intelligent automation — and they nailed it. Every step was collaborative, transparent, and focused on delivering the best outcome for us',
-      author: 'Brendan',
-      role: 'Marketing Director at StratIQ',
-      image: '/images/W7xYkGKzPzvnPv58ZBNzxS3JZI_1.jpg',
+      quote: 'Great service, they set up a campaign and keep working with you to make sure that it fits your needs.',
+      author: 'Mauricio E',
+      role: 'Google Review',
+      initials: 'ME',
       rating: 5,
     },
     {
-      quote: 'Their team helped us identify key opportunities for AI, then built tools that boosted both our speed and accuracy. We\'re already seeing results.',
-      author: 'Lena M',
-      role: 'Manager at NovaTech',
-      image: '/images/PG5vQAQIzOrDyrT8NDWpDNTPoY_1.png',
+      quote: 'The truth is that it has been a great help in boosting our business; we are very happy with the service and the results.',
+      author: 'Diana M Ramirez',
+      role: 'Google Review',
+      initials: 'DR',
       rating: 5,
     },
     {
-      quote: 'From ideation to final delivery, they were incredibly proactive and sharp. Our new AI-powered assistant reduced manual work and improved user satisfaction',
-      author: 'Eli R',
-      role: 'COO at GridFrame',
-      image: '/images/cZ9VBNOcSpg8RiRzIkAXdz6ScF4_1.png',
+      quote: 'Boosted my sales. Very professional team that delivers on their promises.',
+      author: 'Felix D',
+      role: 'Google Review',
+      initials: 'FD',
       rating: 5,
     },
   ]
 
   const stats = [
-    { value: '10+', label: 'Projects Completed' },
-    { value: '10%', label: 'Client Satisfaction' },
-    { value: '5+', label: 'Years of Experience' },
+    { value: '$5M+', label: 'Generated for Clients' },
+    { value: '75+', label: 'Happy Clients' },
+    { value: '3', label: 'Days to First Lead' },
   ]
 
   return (
-    <section className="py-24 px-6 bg-[#f5f5f5]">
+    <section id="testimonials" className="py-24 px-6 bg-[#f5f5f5]">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-16"
         >
           <div className="badge mb-6 mx-auto">
@@ -145,18 +143,18 @@ const Testimonials = () => {
             </svg>
             <span>CUSTOMERS</span>
           </div>
-          <h2 className="section-title mb-4">What Our Clients Say</h2>
+          <h2 className="section-title-gradient mb-4">What Our Clients Say</h2>
           <p className="section-subtitle mx-auto">
-            Join customers who trust AI to transform their business.
+            Join 75+ businesses who transformed their client acquisition.
           </p>
         </motion.div>
 
         {/* Featured Testimonial */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="grid md:grid-cols-2 gap-6 mb-8"
         >
           <div className="card p-8 md:p-10">
@@ -175,22 +173,24 @@ const Testimonials = () => {
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.25, delay: 0.1 }}
               className="flex justify-start"
             >
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" className="text-[#171717]">
-                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+              {/* Quote marks icon */}
+              <svg width="40" height="32" viewBox="0 0 40 32" fill="none" className="text-[#171717]">
+                <path d="M0 32V20.8C0 17.0667 0.666667 13.7333 2 10.8C3.46667 7.73333 5.6 5.2 8.4 3.2C11.2 1.06667 14.6667 0 18.8 0V8C15.8667 8 13.4667 8.93333 11.6 10.8C9.86667 12.6667 9 15.0667 9 18H18V32H0ZM22 32V20.8C22 17.0667 22.6667 13.7333 24 10.8C25.4667 7.73333 27.6 5.2 30.4 3.2C33.2 1.06667 36.6667 0 40.8 0V8C37.8667 8 35.4667 8.93333 33.6 10.8C31.8667 12.6667 31 15.0667 31 18H40V32H22Z" fill="currentColor"/>
               </svg>
             </motion.div>
           </div>
           <div className="card p-0 overflow-hidden">
             <div className="relative w-full h-full min-h-[300px]">
-              <Image
-                src="/images/jV4ovNxnxoMkGdrGCld0sylE1U.png"
-                alt="ORB AI Interface"
-                fill
-                className="object-cover"
+              <iframe
+                src="https://www.loom.com/embed/40370c09c54f4568aea291d9fa386249?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
+                frameBorder="0"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+                title="Hector - Closing 70% Of All Leads"
               />
             </div>
           </div>
@@ -201,11 +201,11 @@ const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="card p-6"
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
+              className="card p-6 flex flex-col"
             >
               {/* Stars */}
               <div className="flex gap-1 mb-4">
@@ -220,14 +220,9 @@ const Testimonials = () => {
               </p>
 
               {/* Author */}
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full overflow-hidden relative">
-                  <Image
-                    src={testimonial.image}
-                    alt={testimonial.author}
-                    fill
-                    className="object-cover"
-                  />
+              <div className="flex items-center gap-3 mt-auto">
+                <div className="w-10 h-10 rounded-full bg-[#171717] flex items-center justify-center">
+                  <span className="text-white text-sm font-medium">{testimonial.initials}</span>
                 </div>
                 <div>
                   <p className="text-sm font-medium text-[#171717]">{testimonial.author}</p>
@@ -240,15 +235,20 @@ const Testimonials = () => {
 
         {/* Stats with animated counters */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="card p-8"
         >
-          <div className="grid grid-cols-3 gap-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-0">
             {stats.map((stat, index) => (
-              <AnimatedStat key={index} value={stat.value} label={stat.label} />
+              <div key={index} className="flex items-center">
+                <AnimatedStat value={stat.value} label={stat.label} />
+                {index < stats.length - 1 && (
+                  <div className="hidden sm:block w-px h-12 bg-[#e5e5e5] mx-4 sm:mx-8 md:mx-12" />
+                )}
+              </div>
             ))}
           </div>
         </motion.div>

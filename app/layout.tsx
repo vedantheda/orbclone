@@ -1,9 +1,23 @@
 import type { Metadata } from 'next'
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-plus-jakarta',
+  weight: ['400', '500', '600', '700', '800'],
+})
+
 export const metadata: Metadata = {
-  title: 'OrbAI – AI Agency Template',
-  description: 'Custom AI solutions, built for the innovators of tomorrow.',
+  title: 'Python Marketing – Client Acquisition for Local Businesses',
+  description: 'Stop door knocking. Stop cold calling. Start closing deals with our automated acquisition system.',
 }
 
 export default function RootLayout({
@@ -12,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className="antialiased bg-[#f5f5f5]">
+    <html lang="en" className={`${inter.variable} ${plusJakarta.variable}`}>
+      <body className="antialiased bg-[#f5f5f5] font-sans">
         {children}
       </body>
     </html>

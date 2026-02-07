@@ -6,13 +6,13 @@ import { ArrowUpRight } from 'lucide-react'
 const FloatingCTA = () => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 1 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 1.2 }}
       className="fixed bottom-6 right-6 z-50"
     >
       <a
-        href="#pricing"
+        href="#get-started"
         className="flex items-center gap-3 px-5 py-3 bg-[#171717] text-white rounded-full shadow-xl hover:bg-[#2a2a2a] transition-all hover:scale-105"
       >
         <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">

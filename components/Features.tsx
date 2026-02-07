@@ -1,166 +1,171 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Layers, Settings, TrendingUp, MessageCircle, ArrowUpRight } from 'lucide-react'
+import { Layers, Send, TrendingUp, MessageCircle, ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
+
+const ease = [0.16, 1, 0.3, 1] as const
+const transition = { duration: 0.7, ease }
 
 const Features = () => {
   return (
-    <section id="features" className="py-24 px-6 bg-[#f5f5f5]">
-      <div className="max-w-6xl mx-auto">
+    <section className="section bg-white" id="features">
+      <div className="container-custom">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={transition}
           className="text-center mb-16"
         >
           <div className="badge mb-6 mx-auto">
             <Layers className="w-4 h-4" />
             <span>FEATURES</span>
           </div>
-          <h2 className="section-title mb-4">All features in 1 tool</h2>
+          <h2 className="section-title-gradient mb-4">A Complete Acquisition Engine</h2>
           <p className="section-subtitle mx-auto">
-            Discover features that simplify workflows & grow your business.
+            A complete acquisition system, not just another lead vendor.
           </p>
         </motion.div>
 
-        {/* Bento Grid - Matching template layout */}
+        {/* Bento Grid — 2 rows, alternating image placement */}
         <div className="space-y-6 mb-10">
-          {/* First Row */}
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Large Card - Cutting-Edge AI */}
+
+          {/* Row 1: Image card (60%) + Text card (40%) */}
+          <div className="grid md:grid-cols-[3fr_2fr] gap-6">
+            {/* Image + text card */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="card p-0 flex flex-col overflow-hidden"
+              viewport={{ once: true, margin: "-100px" }}
+              transition={transition}
+              className="card p-0 overflow-hidden flex flex-col md:flex-row"
             >
               {/* Image */}
-              <div className="h-48 bg-gradient-to-br from-[#f0f0f0] to-[#e5e5e5] flex items-center justify-center relative">
-                <Image
-                  src="/images/N22bVoJydO38s0kOIVYogSPk7IE_1.png"
-                  alt="Cutting-Edge AI"
-                  fill
-                  className="object-cover"
+              <div className="relative w-full md:w-[45%] min-h-[220px] md:min-h-0 flex-shrink-0 overflow-hidden">
+                <motion.div
+                  className="relative w-full h-full"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+                >
+                  <Image
+                    src="/images/feature-data.jpg"
+                    alt="Smart Lead Finding"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 30vw"
+                    className="object-cover"
+                  />
+                </motion.div>
+                {/* Inset border */}
+                <div
+                  className="absolute inset-3 rounded-xl pointer-events-none"
+                  style={{ border: '1px solid rgba(255, 255, 255, 0.3)' }}
                 />
               </div>
-              <div className="p-8 flex flex-col">
-                <div className="icon-box mb-4">
-                  <Layers className="w-5 h-5 text-[#171717]" />
+              {/* Text content */}
+              <div className="flex flex-col justify-center flex-1 p-8">
+                <div className="icon-box mb-5">
+                  <Layers className="w-5 h-5" />
                 </div>
-                <h3 className="text-xl font-semibold text-[#171717] mb-3">Cutting-Edge AI</h3>
+                <h3 className="text-xl font-bold text-[#171717] mb-3">Smart Lead Finding</h3>
                 <p className="text-sm text-[#737373] leading-relaxed">
-                  Deploy AI solutions that adapt quickly, learn fast, and scale with your business needs.
+                  We identify and verify 3,000+ decision-makers in your target market—building a proprietary pipeline you own.
                 </p>
               </div>
             </motion.div>
 
-            {/* Automated Workflows */}
+            {/* Text-only card */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="card p-0 flex flex-col overflow-hidden"
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ ...transition, delay: 0.1 }}
+              className="card p-8 flex flex-col justify-center"
             >
-              {/* Visual mockup */}
-              <div className="h-48 bg-[#f5f5f5] flex items-center justify-center relative">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="grid grid-cols-3 gap-4 opacity-30">
-                    {[...Array(9)].map((_, i) => (
-                      <div key={i} className="w-12 h-12 rounded-lg bg-[#e5e5e5]" />
-                    ))}
-                  </div>
-                </div>
+              <div className="icon-box mb-5">
+                <Send className="w-5 h-5" />
               </div>
-              <div className="p-8 flex flex-col">
-                <div className="icon-box mb-4">
-                  <Settings className="w-5 h-5 text-[#171717]" />
+              <h3 className="text-xl font-bold text-[#171717] mb-3">Automated Outreach</h3>
+              <p className="text-sm text-[#737373] leading-relaxed">
+                Strategically sequenced outreach co-written with you. Each touchpoint is personalized to start real conversations, not blast templates.
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Row 2: Text card (40%) + Image card (60%) */}
+          <div className="grid md:grid-cols-[2fr_3fr] gap-6">
+            {/* Text-only card */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={transition}
+              className="card p-8 flex flex-col justify-center"
+            >
+              <div className="icon-box mb-5">
+                <TrendingUp className="w-5 h-5" />
+              </div>
+              <h3 className="text-xl font-bold text-[#171717] mb-3">Real-Time Reporting</h3>
+              <p className="text-sm text-[#737373] leading-relaxed">
+                Full visibility into your pipeline with weekly strategy calls. You&apos;ll always know what&apos;s working, what&apos;s being optimized, and what&apos;s coming next.
+              </p>
+            </motion.div>
+
+            {/* Image + text card */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ ...transition, delay: 0.1 }}
+              className="card p-0 overflow-hidden flex flex-col md:flex-row"
+            >
+              {/* Image */}
+              <div className="relative w-full md:w-[45%] min-h-[220px] md:min-h-0 flex-shrink-0 overflow-hidden">
+                <motion.div
+                  className="relative w-full h-full"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+                >
+                  <Image
+                    src="/images/feature-team.new.jpg"
+                    alt="Dedicated Support"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 30vw"
+                    className="object-cover"
+                  />
+                </motion.div>
+                {/* Inset border */}
+                <div
+                  className="absolute inset-3 rounded-xl pointer-events-none"
+                  style={{ border: '1px solid rgba(255, 255, 255, 0.3)' }}
+                />
+              </div>
+              {/* Text content */}
+              <div className="flex flex-col justify-center flex-1 p-8">
+                <div className="icon-box mb-5">
+                  <MessageCircle className="w-5 h-5" />
                 </div>
-                <h3 className="text-xl font-semibold text-[#171717] mb-3">Automated Workflows</h3>
+                <h3 className="text-xl font-bold text-[#171717] mb-3">Dedicated Support</h3>
                 <p className="text-sm text-[#737373] leading-relaxed">
-                  Streamline tasks and boost efficiency with powerful, scalable AI-powered automation tools for growing teams and projects.
+                  A dedicated team aligned to your goals—refining scripts, optimizing campaigns, and maximizing your close rate every week.
                 </p>
               </div>
             </motion.div>
           </div>
 
-          {/* Second Row */}
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Insightful Analytics */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="card p-0 flex flex-col overflow-hidden"
-            >
-              {/* Visual mockup */}
-              <div className="h-48 bg-[#f5f5f5] flex items-end justify-center relative px-6 pb-4">
-                <div className="flex items-end gap-3 w-full max-w-[200px]">
-                  {[40, 60, 45, 80, 65, 70, 50].map((h, i) => (
-                    <div
-                      key={i}
-                      className="flex-1 rounded-t-lg bg-gradient-to-t from-[#d5d5d5] to-[#e5e5e5]"
-                      style={{ height: `${h}%`, maxHeight: '120px' }}
-                    />
-                  ))}
-                </div>
-              </div>
-              <div className="p-8 flex flex-col">
-                <div className="icon-box mb-4">
-                  <TrendingUp className="w-5 h-5 text-[#171717]" />
-                </div>
-                <h3 className="text-xl font-semibold text-[#171717] mb-3">Insightful Analytics</h3>
-                <p className="text-sm text-[#737373] leading-relaxed">
-                  Gain deep, real-time data insights with advanced AI analytics to guide smarter strategies, decisions, and scalable business growth.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* AI-Powered Support */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="card p-0 flex flex-col overflow-hidden"
-            >
-              {/* Image */}
-              <div className="h-48 bg-gradient-to-br from-[#f5f0eb] to-[#e8e3de] flex items-center justify-center relative">
-                <Image
-                  src="/images/ozpQ1n5ntn1iNwWiM7StpAZO2IM.jpeg"
-                  alt="AI-Powered Support"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-8 flex flex-col">
-                <div className="icon-box mb-4">
-                  <MessageCircle className="w-5 h-5 text-[#171717]" />
-                </div>
-                <h3 className="text-xl font-semibold text-[#171717] mb-3">AI-Powered Support</h3>
-                <p className="text-sm text-[#737373] leading-relaxed">
-                  Enhance customer experience with AI-driven virtual assistants available for support and engagement.
-                </p>
-              </div>
-            </motion.div>
-          </div>
         </div>
 
         {/* CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={transition}
           className="flex flex-col sm:flex-row items-center justify-center gap-3"
         >
-          <a href="#pricing" className="hero-btn-primary">
-            Get Started
+          <a href="https://tidycal.com/pmdigital/30-minute-meeting" target="_blank" rel="noopener noreferrer" className="hero-btn-primary">
+            Book a Strategy Call
             <ArrowUpRight className="w-4 h-4" strokeWidth={2.5} />
           </a>
           <a href="#services" className="hero-btn-secondary">

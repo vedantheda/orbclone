@@ -2,85 +2,87 @@
 
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
+import Image from 'next/image'
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const navLinks = [
-    { name: 'Features', href: '#features' },
-    { name: 'Pricing', href: '#pricing' },
     { name: 'Services', href: '#services' },
-    { name: 'Updates', href: '#updates' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'How It Works', href: '#process' },
+    { name: 'Testimonials', href: '#testimonials' },
+    { name: 'Get Started', href: '#get-started' },
   ]
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/60 backdrop-blur-2xl border-b border-white/20" style={{ backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}>
-      <div className="max-w-[1200px] mx-auto px-6 md:px-8 py-3">
-        <div className="flex items-center justify-between">
-          {/* Logo with text */}
-          <a href="#hero" className="flex items-center gap-2.5">
-            <svg width="24" height="18" viewBox="0 0 77 55" fill="none">
-              <path fill="#171717" d="M53.691 19.255a4.047 4.047 0 0 1 0 5.723L24.978 53.69a4.047 4.047 0 0 1-5.723 0L1.185 35.62a4.047 4.047 0 0 1 0-5.722L29.9 1.185a4.047 4.047 0 0 1 5.723 0l18.07 18.07Z"/>
-              <path fill="#171717" d="M60.435 24.978a4.047 4.047 0 0 0 0-5.723L47.15 5.968l4.783-4.783a4.047 4.047 0 0 1 5.723 0l18.07 18.07a4.047 4.047 0 0 1 0 5.723L47.01 53.69a4.047 4.047 0 0 1-5.723 0l-4.783-4.783 23.93-23.93Z"/>
-            </svg>
-            <span className="text-lg font-semibold text-[#171717]">OrbAI</span>
-          </a>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/40 backdrop-blur-xl border-b border-neutral-200/30" style={{ backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}>
+      <div className="container-custom flex items-center justify-between py-3">
+        {/* Logo */}
+        <a href="#hero" className="flex items-center gap-2">
+          <Image
+            src="/brand/logo-small.png"
+            alt="Python Marketing"
+            width={200}
+            height={50}
+            className="h-16 w-auto"
+          />
+        </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center gap-1">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className="text-[#525252] hover:text-[#171717] transition-all duration-200 text-[15px] font-medium px-4 py-2 rounded-lg hover:bg-[#f5f5f5]/80"
+            >
+              {link.name}
+            </a>
+          ))}
+        </div>
+
+        {/* CTA Button */}
+        <div className="hidden md:block">
+          <a href="https://tidycal.com/pmdigital/30-minute-meeting" target="_blank" rel="noopener noreferrer" className="nav-btn-primary">
+            Book a Strategy Call
+          </a>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden text-[#171717] p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="container-custom md:hidden pb-4">
+          <div className="flex flex-col gap-4 border-t border-[#e5e5e5] pt-4">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-[#737373] hover:text-[#171717] transition-colors duration-200 text-[15px] font-medium"
+                className="text-[#737373] hover:text-[#171717] transition-colors duration-200 text-[15px] font-medium py-3"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}
               </a>
             ))}
-          </div>
-
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <a href="#pricing" className="nav-btn-primary">
-              Get Started
+            <a
+              href="https://tidycal.com/pmdigital/30-minute-meeting"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-btn-primary text-center mt-2"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Book a Strategy Call
             </a>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-[#171717] p-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-[#e5e5e5] mt-3">
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-[#737373] hover:text-[#171717] transition-colors duration-200 text-[15px] font-medium py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
-              ))}
-              <a
-                href="#pricing"
-                className="nav-btn-primary text-center mt-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Get Started
-              </a>
-            </div>
-          </div>
-        )}
-      </div>
+      )}
     </nav>
   )
 }
