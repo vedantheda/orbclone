@@ -1,15 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Linkedin, Target, Send, BarChart2, MessageCircle } from 'lucide-react'
+import { Linkedin } from 'lucide-react'
 import Image from 'next/image'
-
-const roles = [
-  { icon: Target, title: 'Growth Strategist', description: 'Maps your market and designs campaigns' },
-  { icon: Send, title: 'Outreach Specialist', description: 'Writes and sends personalized sequences' },
-  { icon: BarChart2, title: 'Data Analyst', description: 'Optimizes every metric weekly' },
-  { icon: MessageCircle, title: 'AI Systems Manager', description: 'Manages qualification and follow-up bots' },
-]
 
 const Team = () => {
   return (
@@ -30,33 +23,13 @@ const Team = () => {
               <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
               <path d="M16 3.13a4 4 0 0 1 0 7.75" />
             </svg>
-            <span>YOUR TEAM</span>
+            <span>FOUNDER</span>
           </div>
-          <h2 className="section-title-gradient mb-4">Your Dedicated Growth Team</h2>
+          <h2 className="section-title-gradient mb-4">The Person Behind It All</h2>
           <p className="section-subtitle mx-auto">
-            When you partner with us, you get a full team of specialists—not a single freelancer.
+            Built from real experience helping local businesses grow.
           </p>
         </motion.div>
-
-        {/* Roles Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8">
-          {roles.map((role, index) => (
-            <motion.div
-              key={role.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
-              className="card p-6 text-center"
-            >
-              <div className="icon-box-neu mx-auto mb-4">
-                <role.icon className="w-5 h-5" strokeWidth={1.5} />
-              </div>
-              <h3 className="text-sm font-bold text-[#171717] mb-1">{role.title}</h3>
-              <p className="text-xs text-[#737373]">{role.description}</p>
-            </motion.div>
-          ))}
-        </div>
 
         {/* Founder Card */}
         <motion.div
