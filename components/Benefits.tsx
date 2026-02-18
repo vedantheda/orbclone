@@ -3,8 +3,11 @@
 import { motion } from 'framer-motion'
 import { Star, Zap, Target, Layers, DollarSign, BarChart2, Bot, Brain, Monitor } from 'lucide-react'
 import { SpeedGauge, ResultsChart, SupportHub } from './illustrations'
+import { useIsMobile, fadeIn } from '@/lib/motion'
 
 const Benefits = () => {
+  const isMobile = useIsMobile()
+
   const benefits = [
     {
       title: 'Results in Days, Not Months',
@@ -39,10 +42,7 @@ const Benefits = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          {...fadeIn(isMobile)}
           className="text-center mb-16"
         >
           <div className="badge mb-6 mx-auto">
@@ -60,10 +60,7 @@ const Benefits = () => {
           {benefits.map((benefit, index) => (
             <motion.div
               key={benefit.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
+              {...fadeIn(isMobile, index * 0.1)}
               className="neu-benefit-card p-8"
             >
               {/* Visual */}

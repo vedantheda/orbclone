@@ -16,8 +16,8 @@ const plusJakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Python Marketing – Client Acquisition for Local Businesses',
-  description: 'Stop door knocking. Stop cold calling. Start closing deals with our automated acquisition system.',
+  title: 'Python Marketing – B2B Client Acquisition Systems',
+  description: 'B2B client acquisition systems that fill your pipeline with qualified meetings. We build, manage, and optimize your entire outreach engine.',
 }
 
 export default function RootLayout({

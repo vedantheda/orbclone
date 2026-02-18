@@ -3,42 +3,49 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
+import { useIsMobile, fadeIn } from '@/lib/motion'
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const isMobile = useIsMobile()
 
   const faqs = [
     {
-      question: 'How quickly can I expect to see leads?',
-      answer: 'Most clients see their first qualified leads within 3 days of campaign launch. We focus on speed to results while maintaining lead quality.',
+      question: 'How quickly can I expect to see results?',
+      answer: 'Most clients see their first qualified leads within 3-5 days of campaign launch. Our outbound system is built for speed—we can have your prospect database built and outreach live within the first week.',
     },
     {
       question: 'What industries do you work with?',
-      answer: 'We specialize in home improvement and local services: solar, roofing, HVAC, remodeling, real estate, and similar businesses. Our systems are built specifically for high-ticket local service providers.',
+      answer: 'We work with B2B companies across industries—agencies, SaaS, consulting firms, professional services, and more. If you sell to other businesses and have a high-ticket offer, our system is built for you. We adapt our targeting and messaging to your specific market.',
     },
     {
-      question: 'How is this different from buying leads?',
-      answer: 'We don\'t sell leads - we build you a complete acquisition system. You own the process, the contacts, and the relationships. Plus, we help optimize your booking and closing rates, not just lead volume.',
+      question: 'How is this different from hiring an SDR or using a lead gen agency?',
+      answer: 'An in-house SDR costs $60-80K+/year and takes months to ramp. Most lead gen agencies sell you shared leads with no exclusivity. We give you a dedicated acquisition system you own—proprietary prospect data, personalized outreach, and continuous optimization—at a fraction of the cost of building it in-house.',
+    },
+    {
+      question: 'What\'s the typical investment?',
+      answer: 'Our engagements are structured around the scope of your campaign—number of channels, target markets, and volume. We\'ll map out a clear plan and investment on your strategy call. Most clients see positive ROI within the first 30-60 days.',
     },
     {
       question: 'Do I need to sign a long-term contract?',
-      answer: 'No long-term contracts required. We believe in earning your business month after month with results, not locking you in.',
+      answer: 'No long-term contracts required. We operate on a month-to-month basis because we believe in earning your business with results, not locking you in. That said, the best results come from sustained campaigns—most clients stay 6+ months because the ROI compounds.',
+    },
+    {
+      question: 'What happens if it doesn\'t work?',
+      answer: 'We\'re transparent about expectations from day one. On your strategy call, we\'ll tell you honestly if we think we can deliver results for your business. If campaigns underperform, we optimize aggressively—adjusting targeting, messaging, and sequences weekly until we hit your benchmarks.',
     },
     {
       question: 'What\'s included in your done-with-you support?',
-      answer: 'Beyond running your campaigns, we help optimize your booking rate and closing process. This includes script refinement, follow-up sequences, and weekly strategy calls to maximize your ROI.',
+      answer: 'Beyond running your campaigns, we help optimize your entire sales funnel—from first touch to closed deal. This includes script refinement, follow-up sequences, CRM setup guidance, and weekly strategy calls to maximize your close rate and ROI.',
     },
   ]
 
   return (
-    <section className="py-24 px-6 bg-white">
+    <section className="py-24 px-6 bg-[#f5f5f5]">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          {...fadeIn(isMobile)}
           className="text-center mb-12"
         >
           <div className="badge mb-6 mx-auto">
@@ -57,10 +64,7 @@ const FAQ = () => {
 
         {/* FAQ Accordion */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
+          {...fadeIn(isMobile, 0.08)}
           className="space-y-4"
         >
           {faqs.map((faq, index) => (
@@ -103,10 +107,7 @@ const FAQ = () => {
 
         {/* Contact info */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+          {...fadeIn(isMobile, 0.15)}
           className="mt-8 card p-6"
         >
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-center">

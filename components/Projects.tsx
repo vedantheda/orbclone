@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import Image from 'next/image'
+import { useIsMobile, fadeIn, ease } from '@/lib/motion'
 
 /**
  * Parse a stat value like "1M", "$5M+", "47%", "200", "70" into parts.
@@ -150,58 +152,58 @@ const ProgressBar = ({ label, value, percent, color = '#171717' }: { label: stri
 
 // Per-project dashboard data -- each project has a distinct visual layout
 const dashboardConfigs = [
-  // Project 1: Solar Company - emails sent, meetings booked, close rate
+  // Project 1: Fotón Asesores - email outreach results
   {
     title: 'Outreach Dashboard',
     metrics: [
-      { label: 'Emails Sent', value: '4,120', trend: '+32%' },
-      { label: 'Meetings', value: '29', trend: '+70%' },
+      { label: 'Response Rate', value: '10%+', trend: '5x expected' },
+      { label: 'B2B Leads', value: '60+', trend: '30 days' },
     ],
-    chart: <MiniBarChart heights={[8, 14, 18, 12, 22, 28, 34, 32]} color="#171717" />,
-    chartLabel: 'Meetings Booked / Week',
-    donut: { percent: 70, label: 'Close Rate' },
-    sparkline: <MiniLineChart points={[200, 480, 650, 920, 1400, 2100, 3200, 4120]} color="#171717" />,
-    sparkLabel: 'Emails Sent (Cumulative)',
+    chart: <MiniBarChart heights={[4, 8, 14, 20, 26, 30, 36, 38]} color="#171717" />,
+    chartLabel: 'Weekly Lead Volume',
+    donut: { percent: 10, label: 'Reply Rate' },
+    sparkline: <MiniLineChart points={[2, 8, 16, 24, 32, 40, 50, 60]} color="#171717" />,
+    sparkLabel: 'Leads (Cumulative)',
     progressBars: [
-      { label: 'Opened', value: '62%', percent: 62 },
-      { label: 'Replied', value: '18%', percent: 18 },
-      { label: 'Booked', value: '7%', percent: 7 },
+      { label: 'Delivered', value: '98%', percent: 98 },
+      { label: 'Opened', value: '45%', percent: 45 },
+      { label: 'Replied', value: '10%+', percent: 10 },
     ],
   },
-  // Project 2: Roofing Contractor - leads, appointments, revenue
+  // Project 2: Solar Company - industrial B2B leads
   {
     title: 'Lead Pipeline',
     metrics: [
-      { label: 'Leads', value: '86', trend: '+24%' },
-      { label: 'Appts', value: '34', trend: '+58%' },
+      { label: 'Proposals', value: '60%', trend: 'of leads' },
+      { label: 'Top Project', value: '$500K', trend: '+quoted' },
     ],
-    chart: <MiniBarChart heights={[6, 10, 8, 16, 24, 20, 30, 26]} color="#171717" />,
-    chartLabel: 'Weekly Appointments',
-    donut: { percent: 45, label: 'Close Rate' },
-    sparkline: <MiniLineChart points={[8, 22, 35, 48, 56, 64, 74, 86]} color="#171717" />,
-    sparkLabel: 'Revenue Growth ($K)',
+    chart: <MiniBarChart heights={[6, 10, 14, 18, 22, 20, 26, 30]} color="#171717" />,
+    chartLabel: 'Monthly Lead Flow',
+    donut: { percent: 60, label: 'Visit Rate' },
+    sparkline: <MiniLineChart points={[30, 80, 150, 240, 320, 400, 460, 500]} color="#171717" />,
+    sparkLabel: 'Pipeline Value ($K)',
     progressBars: [
-      { label: 'Qualified', value: '72%', percent: 72 },
-      { label: 'Proposal Sent', value: '48%', percent: 48 },
-      { label: 'Closed Won', value: '45%', percent: 45 },
+      { label: 'Lead to Visit', value: '60%', percent: 60 },
+      { label: 'Visit to Quote', value: '85%', percent: 85 },
+      { label: '50kW+ Projects', value: '1/mo', percent: 40 },
     ],
   },
-  // Project 3: HVAC - campaigns, response rate, ROI
+  // Project 3: Service Business - high close rate with AI
   {
-    title: 'Campaign Performance',
+    title: 'Sales Performance',
     metrics: [
-      { label: 'Campaigns', value: '18', trend: 'Active' },
-      { label: 'Responses', value: '2.4K', trend: '+140%' },
+      { label: 'Close Rate', value: '70%', trend: 'all leads' },
+      { label: 'Qualified', value: '100%', trend: 'AI-filtered' },
     ],
-    chart: <MiniBarChart heights={[4, 8, 12, 18, 24, 30, 36, 38]} color="#171717" />,
-    chartLabel: 'Monthly Response Rate',
-    donut: { percent: 92, label: 'ROI' },
-    sparkline: <MiniLineChart points={[50, 120, 280, 420, 600, 780, 920, 1000]} color="#171717" />,
-    sparkLabel: 'Revenue ($K)',
+    chart: <MiniBarChart heights={[12, 18, 22, 28, 30, 34, 36, 38]} color="#171717" />,
+    chartLabel: 'Weekly Closed Deals',
+    donut: { percent: 70, label: 'Close Rate' },
+    sparkline: <MiniLineChart points={[10, 25, 42, 60, 78, 95, 110, 130]} color="#171717" />,
+    sparkLabel: 'Deals Closed (Cumul.)',
     progressBars: [
-      { label: 'Deliverability', value: '98%', percent: 98 },
-      { label: 'Response Rate', value: '12%', percent: 12 },
-      { label: 'ROI', value: '340%', percent: 85 },
+      { label: 'AI Qualified', value: '100%', percent: 100 },
+      { label: 'Meeting Set', value: '85%', percent: 85 },
+      { label: 'Closed Won', value: '70%', percent: 70 },
     ],
   },
 ]
@@ -276,49 +278,59 @@ const ProjectDashboard = ({ projectIndex }: { projectIndex: number }) => {
 
 const Projects = () => {
   const [activeProject, setActiveProject] = useState(0)
+  const isMobile = useIsMobile()
 
   const projects = [
     {
       id: 1,
-      title: 'Solar Company — Booked Out for Installations',
-      description: 'A residential solar installer went from chasing referrals to a full pipeline of qualified homeowner appointments.',
+      title: <>Fotón Asesores — <strong>5x Expected Results</strong></>,
+      description: <>Fotón Asesores was skeptical about outbound and had been prospecting one-by-one on LinkedIn for months. After launching with us, they hit a <strong className="text-[#171717]">10%+ email response rate</strong>&mdash;<strong className="text-[#171717]">5x their expectations</strong>. What used to take them a year now takes a week.</>,
+      image: '/images/francisco.png',
+      imagePosition: 'center 20%',
+      client: 'Francisco A.',
+      clientRole: 'Fotón Asesores',
       stats: [
-        { value: '29', suffix: '', label: 'Appointments in 30 days' },
-        { value: '70', suffix: '%', label: 'Lead to appointment rate' },
-        { value: '$180', suffix: 'K', label: 'Pipeline generated' },
+        { value: '10', suffix: '%+', label: 'Email response rate' },
+        { value: '5', suffix: 'x', label: 'Above expectations' },
+        { value: '60', suffix: '+', label: 'B2B leads in 30 days' },
       ],
     },
     {
       id: 2,
-      title: 'Roofing Contractor — Commercial Deals Closed',
-      description: 'We helped a roofing company land commercial contracts by targeting property managers and business owners directly.',
+      title: <>B2B Solar — <strong>$500K+ in Projects Quoted</strong></>,
+      description: <>In just <strong className="text-[#171717]">4 months</strong>, we built a consistent pipeline of qualified industrial leads. <strong className="text-[#171717]">60% of all leads</strong> resulted in on-site visits and formal proposals&mdash;including projects up to <strong className="text-[#171717]">half a megawatt</strong>. Better than any paid social campaign they had tried.</>,
+      image: '/images/alfonso.png',
+      imagePosition: 'center 15%',
+      client: 'Alfonso G.',
+      clientRole: 'B2B Solar',
       stats: [
-        { value: '45', suffix: '%', label: 'Close rate on meetings' },
-        { value: '3', suffix: '', label: 'Days to first qualified lead' },
-        { value: '$340', suffix: 'K', label: 'In closed contracts' },
+        { value: '60', suffix: '%', label: 'Leads converted to proposals' },
+        { value: '$500', suffix: 'K+', label: 'In projects quoted' },
+        { value: '4', suffix: '', label: 'Months of partnership' },
       ],
     },
     {
       id: 3,
-      title: 'HVAC Business — Scaled to New Markets',
-      description: 'An HVAC company expanded into 3 new service areas using our automated outreach system.',
+      title: <>Virtual Sales Team — <strong>70% Close Rate</strong></>,
+      description: <>By automating the entire lead qualification process with AI, Hector Santos now closes <strong className="text-[#171717]">70% of every lead</strong> that enters his pipeline. The system handles setting, qualifying, and filtering&mdash;he just <strong className="text-[#171717]">shows up and closes</strong>.</>,
+      image: '/images/ever-solar.png',
+      imagePosition: 'center 30%',
+      client: 'Hector Santos',
+      clientRole: 'Virtual Sales Team',
       stats: [
-        { value: '200', suffix: '%', label: 'Revenue increase' },
-        { value: '1M', suffix: '+', label: 'Emails sent' },
-        { value: '$520', suffix: 'K', label: 'Annual revenue added' },
+        { value: '70', suffix: '%', label: 'Close rate on all leads' },
+        { value: '100', suffix: '%', label: 'Leads AI-qualified' },
+        { value: '0', suffix: '', label: 'Hours spent on manual follow-up' },
       ],
     },
   ]
 
   return (
-    <section id="projects" className="py-24 px-6 bg-white">
+    <section id="projects" className="py-24 px-6 bg-[#f5f5f5]">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          {...fadeIn(isMobile)}
           className="text-center mb-16"
         >
           <div className="badge mb-6 mx-auto">
@@ -355,14 +367,13 @@ const Projects = () => {
         {/* Active Project */}
         <motion.div
           key={activeProject}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: isMobile ? 0 : 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: isMobile ? 0.3 : 0.7, ease }}
           className="card p-8 md:p-12"
         >
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <p className="text-sm text-[#a3a3a3] mb-4">&ldquo;0{projects[activeProject].id}&rdquo;</p>
               <h3 className="text-2xl md:text-3xl font-semibold text-[#171717] mb-4 leading-tight">
                 {projects[activeProject].title}
               </h3>
@@ -383,8 +394,38 @@ const Projects = () => {
               </div>
             </div>
 
-            {/* Dashboard-style visual */}
-            <ProjectDashboard projectIndex={activeProject} />
+            {/* Client photo */}
+            <div
+              className="relative h-[22rem] rounded-2xl p-1.5"
+              style={{
+                background: 'linear-gradient(145deg, #e8e8e8, #d4d4d4)',
+                boxShadow: '6px 6px 16px rgba(0,0,0,0.08), -6px -6px 16px rgba(255,255,255,0.9), inset 1px 1px 2px rgba(255,255,255,0.6)',
+              }}
+            >
+              <div className="relative w-full h-full rounded-xl overflow-hidden">
+                <Image
+                  src={projects[activeProject].image}
+                  alt={projects[activeProject].client}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover grayscale contrast-[1.1] brightness-[1.05]"
+                  style={{ objectPosition: projects[activeProject].imagePosition }}
+                />
+                {/* Vignette + top fade */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    boxShadow: 'inset 0 0 80px rgba(0,0,0,0.25)',
+                    background: 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, transparent 30%, transparent 50%, rgba(0,0,0,0.4) 100%)',
+                  }}
+                />
+                {/* Client name overlay */}
+                <div className="absolute bottom-0 left-0 right-0 px-5 py-4">
+                  <p className="text-sm font-semibold text-white drop-shadow-md">{projects[activeProject].client}</p>
+                  <p className="text-xs text-white/70 drop-shadow-md">{projects[activeProject].clientRole}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>

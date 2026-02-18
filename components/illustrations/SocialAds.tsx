@@ -6,17 +6,17 @@ import { useEffect, useState } from 'react'
 const spring = { type: "spring" as const, stiffness: 260, damping: 20 }
 
 const leads = [
-  { name: 'Sarah M.', action: 'Requested quote' },
+  { name: 'Sarah M.', action: 'Booked a demo' },
   { name: 'Mike T.', action: 'Booked appointment' },
   { name: 'Rachel L.', action: 'Qualified by AI' },
-  { name: 'James W.', action: 'Requested quote' },
+  { name: 'James W.', action: 'Downloaded guide' },
 ]
 
 const formFields = [
   { label: 'Full Name', filled: 'John Martinez' },
-  { label: 'Email', filled: 'john@email.com' },
-  { label: 'Phone', filled: '(555) 012-3456' },
-  { label: 'Zip Code', filled: '90210' },
+  { label: 'Work Email', filled: 'john@company.com' },
+  { label: 'Company', filled: 'Acme Consulting' },
+  { label: 'Team Size', filled: '10-50' },
 ]
 
 type Screen = 'ad' | 'form' | 'confirm'
@@ -106,7 +106,7 @@ const SocialAds = () => {
                       </svg>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-[7px] font-bold text-[#171717] leading-none">SolarPro Inc.</p>
+                      <p className="text-[7px] font-bold text-[#171717] leading-none">GrowthEdge Co.</p>
                       <p className="text-[6px] text-[#a3a3a3] leading-none mt-0.5">Sponsored</p>
                     </div>
                     <svg width="8" height="8" viewBox="0 0 24 24" fill="#a3a3a3">
@@ -114,31 +114,25 @@ const SocialAds = () => {
                     </svg>
                   </div>
 
-                  {/* Ad image - gradient with sun/panels */}
+                  {/* Ad image - gradient with growth chart */}
                   <div
                     className="w-full h-[62px] rounded-lg mb-1.5 relative overflow-hidden flex items-end justify-center"
                     style={{ background: 'linear-gradient(180deg, #e8e8e8 0%, #d4d4d4 100%)' }}
                   >
-                    {/* Simple solar panel illustration */}
+                    {/* Simple growth chart illustration */}
                     <svg width="50" height="30" viewBox="0 0 50 30" fill="none" className="mb-1 opacity-40">
-                      <rect x="5" y="10" width="18" height="18" rx="1" stroke="#525252" strokeWidth="1.2"/>
-                      <line x1="5" y1="16" x2="23" y2="16" stroke="#525252" strokeWidth="0.8"/>
-                      <line x1="5" y1="22" x2="23" y2="22" stroke="#525252" strokeWidth="0.8"/>
-                      <line x1="11" y1="10" x2="11" y2="28" stroke="#525252" strokeWidth="0.8"/>
-                      <line x1="17" y1="10" x2="17" y2="28" stroke="#525252" strokeWidth="0.8"/>
-                      <circle cx="38" cy="10" r="6" stroke="#525252" strokeWidth="1.2"/>
-                      <line x1="38" y1="2" x2="38" y2="4" stroke="#525252" strokeWidth="1"/>
-                      <line x1="38" y1="16" x2="38" y2="18" stroke="#525252" strokeWidth="1"/>
-                      <line x1="30" y1="10" x2="32" y2="10" stroke="#525252" strokeWidth="1"/>
-                      <line x1="44" y1="10" x2="46" y2="10" stroke="#525252" strokeWidth="1"/>
+                      <polyline points="5,25 15,20 22,12 30,15 38,6 45,3" stroke="#525252" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                      <circle cx="45" cy="3" r="2.5" stroke="#525252" strokeWidth="1.2"/>
+                      <line x1="5" y1="28" x2="45" y2="28" stroke="#525252" strokeWidth="0.8"/>
+                      <line x1="5" y1="28" x2="5" y2="3" stroke="#525252" strokeWidth="0.8"/>
                     </svg>
                   </div>
 
                   <p className="text-[9px] text-[#171717] font-bold mb-0.5 leading-tight">
-                    Free Solar Quote for Homeowners
+                    Scale Your B2B Pipeline in 30 Days
                   </p>
                   <p className="text-[7px] text-[#737373] leading-tight mb-1.5">
-                    Save up to 30% on energy bills. Limited spots.
+                    Get qualified meetings on autopilot. Limited spots.
                   </p>
 
                   {/* CTA with shimmer + tap ripple */}
@@ -156,7 +150,7 @@ const SocialAds = () => {
                         animate={{ x: ['-100%', '200%'] }}
                         transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut", repeatDelay: 3 }}
                       />
-                      <span className="text-[7px] text-white font-bold tracking-wide relative z-10">Get Free Quote</span>
+                      <span className="text-[7px] text-white font-bold tracking-wide relative z-10">Book a Demo</span>
                     </div>
                     {/* Tap ripple before transition */}
                     <motion.div
@@ -203,8 +197,8 @@ const SocialAds = () => {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.25 }}
                 >
-                  <p className="text-[9px] font-bold text-[#171717] mb-0.5">Get Your Free Quote</p>
-                  <p className="text-[6px] text-[#a3a3a3] mb-2">Fill in your details below</p>
+                  <p className="text-[9px] font-bold text-[#171717] mb-0.5">Book Your Strategy Call</p>
+                  <p className="text-[6px] text-[#a3a3a3] mb-2">Tell us about your business</p>
 
                   {/* Form fields with typing animation */}
                   {formFields.map((field, i) => (
@@ -336,7 +330,7 @@ const SocialAds = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
                   >
-                    Quote Requested!
+                    Call Booked!
                   </motion.p>
                   <motion.p
                     className="text-[7px] text-[#a3a3a3] text-center"
@@ -344,7 +338,7 @@ const SocialAds = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5 }}
                   >
-                    We&apos;ll call you within 5 minutes
+                    Confirmed for tomorrow at 2 PM
                   </motion.p>
                 </motion.div>
               )}

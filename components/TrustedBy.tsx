@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useIsMobile, fadeIn } from '@/lib/motion'
 
 interface BrandLogo {
   name: string
@@ -11,38 +12,38 @@ interface BrandLogo {
 
 const brands: BrandLogo[] = [
   {
-    name: 'sun365',
-    displayName: 'SUN365',
+    name: 'meridian',
+    displayName: 'MERIDIAN',
     style: 'text-[22px] md:text-[26px] font-extrabold tracking-[0.18em] uppercase',
     decorator: 'dot',
   },
   {
-    name: 'sunners',
-    displayName: 'Sunners',
+    name: 'vantage',
+    displayName: 'Vantage',
     style: 'text-[20px] md:text-[24px] font-medium tracking-[0.06em] italic',
     decorator: 'bar',
   },
   {
-    name: 'solsulet',
-    displayName: 'SOLSULET',
+    name: 'praxion',
+    displayName: 'PRAXION',
     style: 'text-[18px] md:text-[22px] font-semibold tracking-[0.28em] uppercase',
     decorator: 'diamond',
   },
   {
-    name: 'elektrosol',
-    displayName: 'elektrosol',
+    name: 'covalent',
+    displayName: 'covalent',
     style: 'text-[20px] md:text-[24px] font-bold tracking-[0.02em] lowercase',
     decorator: 'slash',
   },
   {
-    name: 'la-grotta-solar',
-    displayName: 'La Grotta Solar',
+    name: 'nuvora-group',
+    displayName: 'Nuvora Group',
     style: 'text-[19px] md:text-[23px] font-semibold tracking-[0.08em]',
     decorator: 'circle',
   },
   {
-    name: 'suncore',
-    displayName: 'SUNCORE',
+    name: 'ascendry',
+    displayName: 'ASCENDRY',
     style: 'text-[21px] md:text-[25px] font-black tracking-[0.22em] uppercase',
     decorator: 'dot',
   },
@@ -76,6 +77,7 @@ const Decorator = ({ type }: { type?: BrandLogo['decorator'] }) => {
 }
 
 const TrustedBy = () => {
+  const isMobile = useIsMobile()
   // Double the brands array for seamless marquee looping
   const marqueeItems = [...brands, ...brands]
 
@@ -86,10 +88,7 @@ const TrustedBy = () => {
     >
       <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          {...fadeIn(isMobile, 0, 24)}
           className="flex flex-col items-center gap-8"
         >
           {/* Google Reviews Badge */}

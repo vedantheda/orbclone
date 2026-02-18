@@ -1,111 +1,159 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Check, X, ArrowUpRight } from 'lucide-react'
+import { Check, X, ArrowUpRight, Shield } from 'lucide-react'
+import { useIsMobile, fadeIn, ease } from '@/lib/motion'
+
+const comparisonRows = [
+  {
+    feature: 'Monthly Cost',
+    us: 'Fraction of in-house',
+    sdr: '$60-80K+/yr salary + tools',
+    agency: '$2-5K/mo for shared leads',
+  },
+  {
+    feature: 'Time to First Lead',
+    us: '3-5 days',
+    sdr: '3-6 months to ramp',
+    agency: '2-4 weeks (if qualified)',
+  },
+  {
+    feature: 'Data Ownership',
+    us: 'You own everything',
+    sdr: 'Depends on contract',
+    agency: 'Shared / rented leads',
+  },
+  {
+    feature: 'Dedicated Team',
+    us: '10-person team on your account',
+    sdr: 'Single employee',
+    agency: 'Shared across clients',
+  },
+  {
+    feature: 'Outreach Quality',
+    us: 'Personalized, co-written with you',
+    sdr: 'One person\'s best effort',
+    agency: 'Generic templates at scale',
+  },
+  {
+    feature: 'Optimization',
+    us: 'Weekly strategy + continuous A/B testing',
+    sdr: 'Self-directed',
+    agency: 'Quarterly (maybe)',
+  },
+  {
+    feature: 'Contracts',
+    us: 'Month-to-month',
+    sdr: 'Employment agreement',
+    agency: '6-12 month minimum',
+  },
+  {
+    feature: 'Transparency',
+    us: 'Full pipeline visibility + weekly calls',
+    sdr: 'Varies by person',
+    agency: 'Monthly PDF reports',
+  },
+]
 
 const Comparison = () => {
-  const orbFeatures = [
-    'Own your entire growth pipeline',
-    'Strategic partner, not a faceless vendor',
-    'Personalized outreach that builds trust',
-    'Appointments in days, not months',
-    'AI-powered qualification & instant engagement',
-    'Full pipeline visibility & weekly strategy',
-    'No contracts—results earn your business',
-  ]
-
-  const othersFeatures = [
-    'Buying shared leads from vendors',
-    'Generic one-size-fits-all campaigns',
-    'Cold calling and door knocking',
-    'Waiting months for referrals',
-    'Manual follow-up (leads go cold)',
-    'No visibility into performance',
-    'Generic mass messaging',
-  ]
+  const isMobile = useIsMobile()
 
   return (
-    <section className="py-24 px-6 bg-white">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-24 px-6 bg-[#f5f5f5]">
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          {...fadeIn(isMobile)}
           className="text-center mb-16"
         >
           <div className="badge mb-6 mx-auto">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="18" y1="20" x2="18" y2="10" />
-              <line x1="12" y1="20" x2="12" y2="4" />
-              <line x1="6" y1="20" x2="6" y2="14" />
-            </svg>
-            <span>COMPARISON</span>
+            <Shield className="w-4 h-4" />
+            <span>HOW WE COMPARE</span>
           </div>
-          <h2 className="section-title-gradient mb-4">Us vs. The Old Way</h2>
+          <h2 className="section-title-gradient mb-4">How We&apos;re Different</h2>
           <p className="section-subtitle mx-auto">
-            Stop renting leads. Start owning your growth.
+            See how partnering with us compares to the alternatives.
           </p>
         </motion.div>
 
-        {/* Comparison Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Python Marketing */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="card p-8"
-            style={{ border: '2px solid #171717' }}
-          >
-            <h3 className="text-2xl font-bold text-[#171717] mb-8">Python Marketing</h3>
-
-            <ul className="space-y-4 mb-8">
-              {orbFeatures.map((feature, index) => (
-                <li key={index} className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-[#171717] flex items-center justify-center flex-shrink-0">
-                    <Check className="w-3.5 h-3.5 text-white" />
-                  </div>
-                  <span className="text-[#737373]">{feature}</span>
-                </li>
-              ))}
-            </ul>
-
-            <a
-              href="https://tidycal.com/pmdigital/30-minute-meeting"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero-btn-primary w-full justify-center"
+        {/* Comparison Table */}
+        <motion.div
+          {...fadeIn(isMobile)}
+          className="card p-0 overflow-hidden"
+        >
+          {/* Table Header */}
+          <div className="grid grid-cols-4 gap-0">
+            <div className="p-4 md:p-6" />
+            <div
+              className="p-4 md:p-6 text-center"
+              style={{
+                background: 'linear-gradient(180deg, #262626, #171717)',
+              }}
             >
-              Book a Strategy Call
-              <ArrowUpRight className="w-4 h-4" strokeWidth={2.5} />
-            </a>
-          </motion.div>
+              <p className="text-sm md:text-base font-bold text-white">Python Marketing</p>
+              <p className="text-[10px] text-[#a3a3a3] mt-1 hidden sm:block">Your growth partner</p>
+            </div>
+            <div className="p-4 md:p-6 text-center border-l border-[#e8e8e8]">
+              <p className="text-sm md:text-base font-bold text-[#a3a3a3]">In-House SDR</p>
+              <p className="text-[10px] text-[#d4d4d4] mt-1 hidden sm:block">Hire & manage</p>
+            </div>
+            <div className="p-4 md:p-6 text-center border-l border-[#e8e8e8]">
+              <p className="text-sm md:text-base font-bold text-[#a3a3a3]">Lead Gen Agency</p>
+              <p className="text-[10px] text-[#d4d4d4] mt-1 hidden sm:block">Buy shared leads</p>
+            </div>
+          </div>
 
-          {/* Others */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            className="card p-8 bg-[#fafafa]"
+          {/* Table Rows */}
+          {comparisonRows.map((row, index) => (
+            <div
+              key={row.feature}
+              className="grid grid-cols-4 gap-0"
+              style={{
+                borderTop: '1px solid #e8e8e8',
+                background: index % 2 === 0 ? '#fafafa' : '#ffffff',
+              }}
+            >
+              <div className="p-3 md:p-5 flex items-center">
+                <span className="text-xs md:text-sm font-medium text-[#525252]">{row.feature}</span>
+              </div>
+              <div
+                className="p-3 md:p-5 flex items-center gap-2"
+                style={{
+                  background: index % 2 === 0
+                    ? 'linear-gradient(180deg, #1f1f1f, #171717)'
+                    : 'linear-gradient(180deg, #262626, #1a1a1a)',
+                }}
+              >
+                <Check className="w-3.5 h-3.5 text-white flex-shrink-0 hidden sm:block" />
+                <span className="text-xs md:text-sm text-white/90">{row.us}</span>
+              </div>
+              <div className="p-3 md:p-5 flex items-center gap-2 border-l border-[#e8e8e8]">
+                <X className="w-3.5 h-3.5 text-[#d4d4d4] flex-shrink-0 hidden sm:block" />
+                <span className="text-xs md:text-sm text-[#a3a3a3]">{row.sdr}</span>
+              </div>
+              <div className="p-3 md:p-5 flex items-center gap-2 border-l border-[#e8e8e8]">
+                <X className="w-3.5 h-3.5 text-[#d4d4d4] flex-shrink-0 hidden sm:block" />
+                <span className="text-xs md:text-sm text-[#a3a3a3]">{row.agency}</span>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          {...fadeIn(isMobile, 0.1, 20)}
+          className="text-center mt-10"
+        >
+          <a
+            href="https://tidycal.com/pmdigital/30-minute-meeting"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hero-btn-primary inline-flex"
           >
-            <h3 className="text-2xl font-bold text-[#a3a3a3] mb-8">Traditional Lead Gen</h3>
-
-            <ul className="space-y-4">
-              {othersFeatures.map((feature, index) => (
-                <li key={index} className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-[#e5e5e5] flex items-center justify-center flex-shrink-0">
-                    <X className="w-3.5 h-3.5 text-[#a3a3a3]" />
-                  </div>
-                  <span className="text-[#a3a3a3]">{feature}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        </div>
+            See If We&apos;re a Fit
+            <ArrowUpRight className="w-4 h-4" strokeWidth={2.5} />
+          </a>
+        </motion.div>
       </div>
     </section>
   )

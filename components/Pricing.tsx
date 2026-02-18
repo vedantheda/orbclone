@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ArrowUpRight, Check, Calendar, ChevronRight } from 'lucide-react'
+import { useIsMobile, fadeIn, ease } from '@/lib/motion'
 
 const AnimatedNumber = ({ target, inView }: { target: number; inView: boolean }) => {
   const [count, setCount] = useState(0)
@@ -70,6 +71,7 @@ const pipelineStages = [
 ]
 
 const Pricing = () => {
+  const isMobile = useIsMobile()
   const pipelineRef = useRef(null)
   const isInView = useInView(pipelineRef, { once: true, margin: '-100px' })
 
@@ -82,14 +84,11 @@ const Pricing = () => {
   ]
 
   return (
-    <section id="get-started" className="py-24 px-6 bg-[#f5f5f5]">
+    <section id="get-started" className="py-24 px-6 bg-white">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          {...fadeIn(isMobile)}
           className="text-center mb-12"
         >
           <div className="badge mb-6 mx-auto">
@@ -105,10 +104,7 @@ const Pricing = () => {
         {/* Pipeline Projection */}
         <motion.div
           ref={pipelineRef}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          {...fadeIn(isMobile)}
           className="card p-8 md:p-10 mb-8"
         >
           <h3 className="text-lg font-bold text-[#171717] text-center mb-2">Your Pipeline Projection</h3>
@@ -118,10 +114,7 @@ const Pricing = () => {
             {pipelineStages.map((stage, index) => (
               <div key={stage.label} className="flex flex-col md:flex-row items-center gap-3 md:gap-2">
                 <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.12 }}
+                  {...fadeIn(isMobile, index * 0.12)}
                   className="rounded-2xl px-6 py-5 text-center min-w-[140px]"
                   style={{
                     background: stage.bg,
@@ -150,13 +143,27 @@ const Pricing = () => {
 
         {/* Single CTA Card */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          {...fadeIn(isMobile)}
           className="card p-8 md:p-12 text-center"
           style={{ border: '2px solid #171717' }}
         >
+          {/* Urgency Badge */}
+          <div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
+            style={{
+              background: 'linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%)',
+              border: '1px solid #e0e0e0',
+              borderTopColor: '#fff',
+              boxShadow: '0 1px 0 rgba(255,255,255,1) inset, 0 1px 3px rgba(0,0,0,0.04)',
+            }}
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#171717] opacity-50" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#171717]" />
+            </span>
+            <span className="text-xs font-medium text-[#525252]">We onboard 3 new clients per month — limited availability</span>
+          </div>
+
           <h3 className="text-2xl md:text-3xl font-bold text-[#171717] mb-4">
             Book Your Strategy Call
           </h3>
@@ -190,6 +197,20 @@ const Pricing = () => {
           <p className="text-xs text-[#a3a3a3] mt-4">
             No commitment required. See if we&apos;re a good fit.
           </p>
+
+          {/* Secondary Lead Magnet CTA */}
+          <div className="mt-6 pt-6" style={{ borderTop: '1px solid #e8e8e8' }}>
+            <p className="text-xs text-[#a3a3a3]">
+              Not ready for a call?{' '}
+              <a
+                href="#roi-calculator"
+                className="text-[#171717] font-medium hover:underline"
+              >
+                Try our ROI calculator
+              </a>{' '}
+              to see your pipeline potential first.
+            </p>
+          </div>
         </motion.div>
       </div>
     </section>

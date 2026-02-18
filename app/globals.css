@@ -651,3 +651,11 @@ body::before {
 .marquee:hover {
   animation-play-state: paused;
 }
+
+.marquee-slow {
+  animation: marquee 45s linear infinite;
+}
+
+.marquee-slow:hover {
+  animation-play-state: paused;
+}

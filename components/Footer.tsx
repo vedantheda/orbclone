@@ -6,7 +6,7 @@ import Image from 'next/image'
 const Footer = () => {
   const footerLinks = [
     { name: 'Services', href: '#services' },
-    { name: 'How It Works', href: '#process' },
+    { name: 'How It Works', href: '#pipeline' },
     { name: 'Testimonials', href: '#testimonials' },
     { name: 'Book a Strategy Call', href: 'https://tidycal.com/pmdigital/30-minute-meeting', external: true },
   ]
@@ -73,7 +73,7 @@ const Footer = () => {
               />
             </a>
             <p className="text-sm text-[#737373]">
-              Client acquisition systems for local businesses
+              B2B client acquisition systems that deliver results
             </p>
           </div>
 
@@ -106,9 +106,9 @@ const Footer = () => {
               Python Marketing &copy; {new Date().getFullYear()}. All rights reserved.
             </p>
             <div className="flex items-center gap-2 text-xs text-[#a3a3a3]">
-              <a href="#" className="hover:text-[#737373] transition-colors">Privacy Policy</a>
+              <a href="/privacy" className="hover:text-[#737373] transition-colors">Privacy Policy</a>
               <span>&middot;</span>
-              <a href="#" className="hover:text-[#737373] transition-colors">Terms of Service</a>
+              <a href="/terms" className="hover:text-[#737373] transition-colors">Terms of Service</a>
             </div>
           </div>
         </div>

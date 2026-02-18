@@ -2,8 +2,11 @@
 
 import { motion } from 'framer-motion'
 import { Search, Send, TrendingUp } from 'lucide-react'
+import { useIsMobile, fadeIn } from '@/lib/motion'
 
 const Process = () => {
+  const isMobile = useIsMobile()
+
   const steps = [
     {
       number: '01',
@@ -30,10 +33,7 @@ const Process = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          {...fadeIn(isMobile)}
           className="text-center mb-16"
         >
           <div className="badge mb-6 mx-auto">
@@ -52,10 +52,7 @@ const Process = () => {
         <div className="space-y-6">
           {/* First Step - Full Width */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            {...fadeIn(isMobile)}
             className="card p-8 md:p-10 relative overflow-hidden"
           >
             <div className="flex flex-col md:flex-row md:items-start gap-6">
@@ -82,10 +79,7 @@ const Process = () => {
             {steps.slice(1).map((step, index) => (
               <motion.div
                 key={step.number}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.12 }}
+                {...fadeIn(isMobile, index * 0.12)}
                 className="card p-8 relative overflow-hidden"
               >
                 {/* Icon */}

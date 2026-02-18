@@ -1,33 +1,46 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 
 const FloatingCTA = () => {
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show after scrolling past ~1 viewport height
+      setVisible(window.scrollY > window.innerHeight)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 1.2 }}
-      className="fixed bottom-6 right-6 z-50"
-    >
-      <a
-        href="#get-started"
-        className="flex items-center gap-3 px-5 py-3 bg-[#171717] text-white rounded-full shadow-xl hover:bg-[#2a2a2a] transition-all hover:scale-105"
-      >
-        <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
-          {/* 4-leaf clover pattern icon matching template */}
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L14 10L12 12L10 10L12 2Z" fill="white"/>
-            <path d="M22 12L14 14L12 12L14 10L22 12Z" fill="white"/>
-            <path d="M12 22L10 14L12 12L14 14L12 22Z" fill="white"/>
-            <path d="M2 12L10 10L12 12L10 14L2 12Z" fill="white"/>
-          </svg>
-        </div>
-        <span className="font-medium text-sm">Get Orb AI</span>
-        <ArrowUpRight className="w-4 h-4" />
-      </a>
-    </motion.div>
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.95 }}
+          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="fixed bottom-6 right-6 z-50"
+        >
+          <a
+            href="https://tidycal.com/pmdigital/30-minute-meeting"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-btn-primary py-3 px-5 text-sm shadow-lg"
+            style={{
+              boxShadow: '0 4px 16px rgba(0,0,0,0.2), 0 8px 32px rgba(0,0,0,0.1)',
+            }}
+          >
+            Book a Call
+            <ArrowUpRight className="w-4 h-4" strokeWidth={2.5} />
+          </a>
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }
 

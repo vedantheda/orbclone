@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useIsMobile, fadeIn } from '@/lib/motion'
 
 // Word-by-word unblur animation component
 const AnimatedWord = ({ word, index, isHighlight }: { word: string; index: number; isHighlight: boolean }) => {
@@ -30,6 +31,8 @@ const AnimatedWord = ({ word, index, isHighlight }: { word: string; index: numbe
 }
 
 const Quote = () => {
+  const isMobile = useIsMobile()
+
   // Define the quote with highlights
   const quoteWords = [
     { text: '"We\'re', highlight: false },
@@ -75,10 +78,7 @@ const Quote = () => {
           </h3>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            {...fadeIn(isMobile, 0.1, 20)}
             className="flex items-center justify-center gap-3"
           >
             <div className="w-12 h-12 rounded-full overflow-hidden relative ring-2 ring-white"

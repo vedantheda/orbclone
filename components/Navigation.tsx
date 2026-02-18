@@ -9,13 +9,13 @@ const Navigation = () => {
 
   const navLinks = [
     { name: 'Services', href: '#services' },
-    { name: 'How It Works', href: '#process' },
+    { name: 'How It Works', href: '#pipeline' },
     { name: 'Testimonials', href: '#testimonials' },
     { name: 'Get Started', href: '#get-started' },
   ]
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/40 backdrop-blur-xl border-b border-neutral-200/30" style={{ backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-neutral-200/30">
       <div className="container-custom flex items-center justify-between py-3">
         {/* Logo */}
         <a href="#hero" className="flex items-center gap-2">
@@ -24,7 +24,7 @@ const Navigation = () => {
             alt="Python Marketing"
             width={200}
             height={50}
-            className="h-16 w-auto"
+            className="h-16 w-auto brightness-0"
           />
         </a>
 

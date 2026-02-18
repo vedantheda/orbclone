@@ -8,9 +8,9 @@ const spring = { type: "spring" as const, stiffness: 260, damping: 20 }
 type Screen = 'scraping' | 'composing' | 'sending' | 'done'
 
 const emails = [
-  { initials: 'JM', name: 'John Miller', company: 'PropertyCo', color: '#e8e8e8' },
-  { initials: 'SR', name: 'Sarah Roberts', company: 'SunPower', color: '#d8d8d8' },
-  { initials: 'DK', name: 'David Kim', company: 'RoofMax', color: '#e0e0e0' },
+  { initials: 'JM', name: 'John Miller', company: 'Axon SaaS', color: '#e8e8e8' },
+  { initials: 'SR', name: 'Sarah Roberts', company: 'Vantage Co', color: '#d8d8d8' },
+  { initials: 'DK', name: 'David Kim', company: 'Praxion Inc', color: '#e0e0e0' },
 ]
 
 const EmailOutreach = () => {
@@ -148,7 +148,7 @@ const EmailOutreach = () => {
                   </div>
                 </div>
                 <p className="text-[10px] font-semibold text-[#171717] mb-1">Scraping decision makers</p>
-                <p className="text-[8px] text-[#a3a3a3]">Portland, OR &middot; Roofing contractors</p>
+                <p className="text-[8px] text-[#a3a3a3]">B2B &middot; SaaS &amp; Agency owners</p>
 
                 {/* Animated lead count */}
                 <div
@@ -186,7 +186,7 @@ const EmailOutreach = () => {
                     <div className="w-3.5 h-3.5 rounded-full bg-[#e0e0e0] flex items-center justify-center">
                       <span className="text-[6px] font-bold text-[#a3a3a3]">J</span>
                     </div>
-                    <span className="text-[10px] text-[#525252]">john@propertyco.com</span>
+                    <span className="text-[10px] text-[#525252]">john@axonsaas.com</span>
                   </motion.div>
                 </div>
 
@@ -197,12 +197,12 @@ const EmailOutreach = () => {
                   transition={{ delay: 0.4 }}
                 >
                   <span className="text-[10px] text-[#c5c5c5]">Subject: </span>
-                  <span className="text-[10px] font-semibold text-[#171717]">Quick question about your roofing needs</span>
+                  <span className="text-[10px] font-semibold text-[#171717]">Quick question about scaling your pipeline</span>
                 </motion.div>
 
                 <div className="border-t border-[#f0f0f0] pt-2">
                   <TypingText
-                    text="Hi John, I noticed your property at 123 Main St might benefit from a roof inspection. We're offering free estimates this month for businesses in the Portland area..."
+                    text="Hi John, I noticed Axon SaaS recently expanded into the mid-market. We help B2B companies like yours fill their pipeline with qualified meetings on autopilot..."
                     speed={25}
                   />
                 </div>

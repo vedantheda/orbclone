@@ -1,22 +1,30 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Layers, Send, TrendingUp, MessageCircle, ArrowUpRight } from 'lucide-react'
-import Image from 'next/image'
+import { Layers, Send, TrendingUp, MessageCircle, ArrowUpRight, Zap, Target, DollarSign, BarChart2, Bot, Brain, Monitor } from 'lucide-react'
+import { useIsMobile, fadeIn, ease } from '@/lib/motion'
+import { LeadScanner, TeamSync } from './illustrations'
 
-const ease = [0.16, 1, 0.3, 1] as const
-const transition = { duration: 0.7, ease }
+const pills = [
+  { icon: Zap, label: 'Fast Results' },
+  { icon: Target, label: 'Targeted Outreach' },
+  { icon: Layers, label: 'Scalable Systems' },
+  { icon: DollarSign, label: 'No Lead Buying' },
+  { icon: BarChart2, label: 'Weekly Reports' },
+  { icon: Bot, label: 'AI Qualification' },
+  { icon: Brain, label: 'Data-Driven' },
+  { icon: Monitor, label: 'Full Transparency' },
+]
 
 const Features = () => {
+  const isMobile = useIsMobile()
+
   return (
-    <section className="section bg-white" id="features">
+    <section className="section bg-[#f5f5f5]" id="features">
       <div className="container-custom">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={transition}
+          {...fadeIn(isMobile)}
           className="text-center mb-16"
         >
           <div className="badge mb-6 mx-auto">
@@ -36,32 +44,14 @@ const Features = () => {
           <div className="grid md:grid-cols-[3fr_2fr] gap-6">
             {/* Image + text card */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={transition}
+              {...fadeIn(isMobile)}
               className="card p-0 overflow-hidden flex flex-col md:flex-row"
             >
-              {/* Image */}
-              <div className="relative w-full md:w-[45%] min-h-[220px] md:min-h-0 flex-shrink-0 overflow-hidden">
-                <motion.div
-                  className="relative w-full h-full"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-                >
-                  <Image
-                    src="/images/feature-data.jpg"
-                    alt="Smart Lead Finding"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 30vw"
-                    className="object-cover"
-                  />
-                </motion.div>
-                {/* Inset border */}
-                <div
-                  className="absolute inset-3 rounded-xl pointer-events-none"
-                  style={{ border: '1px solid rgba(255, 255, 255, 0.3)' }}
-                />
+              {/* Illustration */}
+              <div className="relative w-full md:w-[45%] h-[360px] flex-shrink-0 overflow-hidden"
+                style={{ background: 'linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%)' }}
+              >
+                <LeadScanner />
               </div>
               {/* Text content */}
               <div className="flex flex-col justify-center flex-1 p-8">
@@ -77,10 +67,7 @@ const Features = () => {
 
             {/* Text-only card */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ ...transition, delay: 0.1 }}
+              {...fadeIn(isMobile, 0.1)}
               className="card p-8 flex flex-col justify-center"
             >
               <div className="icon-box mb-5">
@@ -97,10 +84,7 @@ const Features = () => {
           <div className="grid md:grid-cols-[2fr_3fr] gap-6">
             {/* Text-only card */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={transition}
+              {...fadeIn(isMobile)}
               className="card p-8 flex flex-col justify-center"
             >
               <div className="icon-box mb-5">
@@ -114,32 +98,14 @@ const Features = () => {
 
             {/* Image + text card */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ ...transition, delay: 0.1 }}
+              {...fadeIn(isMobile, 0.1)}
               className="card p-0 overflow-hidden flex flex-col md:flex-row"
             >
-              {/* Image */}
-              <div className="relative w-full md:w-[45%] min-h-[220px] md:min-h-0 flex-shrink-0 overflow-hidden">
-                <motion.div
-                  className="relative w-full h-full"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-                >
-                  <Image
-                    src="/images/feature-team.new.jpg"
-                    alt="Dedicated Support"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 30vw"
-                    className="object-cover"
-                  />
-                </motion.div>
-                {/* Inset border */}
-                <div
-                  className="absolute inset-3 rounded-xl pointer-events-none"
-                  style={{ border: '1px solid rgba(255, 255, 255, 0.3)' }}
-                />
+              {/* Illustration */}
+              <div className="relative w-full md:w-[45%] h-[360px] flex-shrink-0 overflow-hidden"
+                style={{ background: 'linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%)' }}
+              >
+                <TeamSync />
               </div>
               {/* Text content */}
               <div className="flex flex-col justify-center flex-1 p-8">
@@ -156,12 +122,21 @@ const Features = () => {
 
         </div>
 
+        {/* Feature Pills Marquee */}
+        <div className="overflow-hidden relative py-3 mb-10" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
+          <div className="flex gap-4 marquee">
+            {[...pills, ...pills, ...pills].map((pill, index) => (
+              <div key={index} className="feature-pill flex-shrink-0">
+                <pill.icon className="w-5 h-5 text-[#171717]" strokeWidth={1.5} />
+                <span className="text-[#171717] font-medium">{pill.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={transition}
+          {...fadeIn(isMobile)}
           className="flex flex-col sm:flex-row items-center justify-center gap-3"
         >
           <a href="https://tidycal.com/pmdigital/30-minute-meeting" target="_blank" rel="noopener noreferrer" className="hero-btn-primary">

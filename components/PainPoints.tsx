@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { AlertTriangle, Clock, DollarSign, TrendingDown, UserX, Zap, Eye, ArrowDown } from 'lucide-react'
+import { useIsMobile, fadeIn } from '@/lib/motion'
 
 const painPoints = [
   {
@@ -26,20 +27,19 @@ const painPoints = [
   },
   {
     icon: Eye,
-    text: 'Spending on ads with no idea what\u2019s actually working',
+    text: 'Spending on ads with no idea what’s actually working',
   },
 ]
 
 const PainPoints = () => {
+  const isMobile = useIsMobile()
+
   return (
     <section className="py-24 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          {...fadeIn(isMobile)}
           className="text-center mb-16"
         >
           <div className="badge mb-6 mx-auto">
@@ -47,7 +47,7 @@ const PainPoints = () => {
             <span>SOUND FAMILIAR?</span>
           </div>
           <h2 className="section-title-gradient mb-4">
-            The Growth Ceiling Every Local Business Hits
+            The Growth Ceiling Every Business Hits
           </h2>
           <p className="section-subtitle mx-auto">
             You&apos;re great at what you do. But finding new clients shouldn&apos;t be this hard.
@@ -59,10 +59,7 @@ const PainPoints = () => {
           {painPoints.map((point, index) => (
             <motion.div
               key={point.text}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
+              {...fadeIn(isMobile, index * 0.08)}
               className="card p-6 flex items-start gap-4"
             >
               <div className="icon-box-neu flex-shrink-0">
@@ -85,10 +82,7 @@ const PainPoints = () => {
 
         {/* Bottom CTA line */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          {...fadeIn(isMobile)}
           className="flex flex-col items-center gap-2"
         >
           <p className="text-lg font-semibold text-[#171717]">

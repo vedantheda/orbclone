@@ -3,17 +3,17 @@
 import { motion } from 'framer-motion'
 import { Linkedin } from 'lucide-react'
 import Image from 'next/image'
+import { useIsMobile, fadeIn } from '@/lib/motion'
 
 const Team = () => {
+  const isMobile = useIsMobile()
+
   return (
-    <section className="py-24 px-6 bg-[#f5f5f5]">
+    <section className="py-24 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          {...fadeIn(isMobile)}
           className="text-center mb-12"
         >
           <div className="badge mb-6 mx-auto">
@@ -27,16 +27,13 @@ const Team = () => {
           </div>
           <h2 className="section-title-gradient mb-4">The Person Behind It All</h2>
           <p className="section-subtitle mx-auto">
-            Built from real experience helping local businesses grow.
+            Built from real experience helping businesses grow.
           </p>
         </motion.div>
 
         {/* Founder Card */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          {...fadeIn(isMobile)}
           className="card p-8 md:p-12"
         >
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
@@ -63,9 +60,9 @@ const Team = () => {
               <p className="text-[#737373] mb-4">Founder & CEO</p>
 
               <p className="text-[#525252] leading-relaxed mb-6">
-                After years in digital marketing, I saw local businesses struggling with the same problem:
-                they were great at their craft but had no reliable way to find new clients.
-                That&apos;s why I built Python Marketing—to give businesses a predictable,
+                After years in digital marketing, I saw businesses struggling with the same problem:
+                they were great at what they do but had no reliable way to find new clients.
+                That&apos;s why I built Python Marketing—to give B2B companies a predictable,
                 done-for-you acquisition system that actually works.
               </p>
 

@@ -4,6 +4,8 @@ import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
 
+const ease = [0.16, 1, 0.3, 1] as const
+
 const Hero = () => {
   return (
     <section id="hero" className="relative overflow-hidden flex flex-col items-center justify-center h-screen">
@@ -26,9 +28,9 @@ const Hero = () => {
       <div className="max-w-4xl mx-auto text-center relative z-10 px-6">
         {/* Badge */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.5, ease }}
           className="badge mb-1"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-neutral-400">
@@ -41,7 +43,7 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+          transition={{ duration: 0.5, ease, delay: 0.1 }}
           className="flex flex-col items-center -my-4 sm:-my-8 md:-my-16 lg:-my-20"
         >
           <Image
@@ -49,16 +51,16 @@ const Hero = () => {
             alt="Python Marketing"
             width={900}
             height={270}
-            className="w-auto h-28 sm:h-44 md:h-80 lg:h-96 max-w-full"
+            className="w-auto h-28 sm:h-44 md:h-80 lg:h-96 max-w-full brightness-0"
             priority
           />
         </motion.div>
 
         {/* Subheadline */}
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
+          transition={{ duration: 0.5, ease, delay: 0.2 }}
           className="text-lg md:text-xl text-[#171717] -mt-6 mb-12 max-w-lg mx-auto leading-relaxed"
         >
           We build, manage, and optimize your entire client acquisition pipeline—so you focus on closing deals, not chasing leads.
@@ -66,9 +68,9 @@ const Hero = () => {
 
         {/* CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
+          transition={{ duration: 0.5, ease, delay: 0.3 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-2"
         >
           <a href="https://tidycal.com/pmdigital/30-minute-meeting" target="_blank" rel="noopener noreferrer" className="hero-btn-primary">
@@ -78,6 +80,29 @@ const Hero = () => {
           <a href="#services" className="hero-btn-secondary">
             See How It Works
           </a>
+        </motion.div>
+
+        {/* Social Proof Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease, delay: 0.4 }}
+          className="mt-10 flex items-center justify-center gap-6 sm:gap-8"
+        >
+          <div className="flex items-center gap-2">
+            <span className="text-xl sm:text-2xl font-bold text-[#171717]">75+</span>
+            <span className="text-xs text-[#737373]">Clients Served</span>
+          </div>
+          <div className="w-px h-6 bg-[#d5d5d5]" />
+          <div className="flex items-center gap-2">
+            <span className="text-xl sm:text-2xl font-bold text-[#171717]">$5M+</span>
+            <span className="text-xs text-[#737373]">Revenue Generated</span>
+          </div>
+          <div className="w-px h-6 bg-[#d5d5d5] hidden sm:block" />
+          <div className="hidden sm:flex items-center gap-2">
+            <span className="text-xl sm:text-2xl font-bold text-[#171717]">3 days</span>
+            <span className="text-xs text-[#737373]">To First Lead</span>
+          </div>
         </motion.div>
       </div>
     </section>
