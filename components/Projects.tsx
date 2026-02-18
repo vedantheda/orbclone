@@ -408,7 +408,7 @@ const Projects = () => {
                   alt={projects[activeProject].client}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover grayscale contrast-[1.1] brightness-[1.05]"
+                  className="object-cover"
                   style={{ objectPosition: projects[activeProject].imagePosition }}
                 />
                 {/* Vignette + top fade */}
