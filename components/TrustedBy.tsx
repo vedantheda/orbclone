@@ -18,13 +18,11 @@ const brands: BrandLogo[] = [
     name: 'adverat-consulting',
     displayName: 'ADVERAT',
     style: 'text-[22px] md:text-[26px] font-extrabold tracking-[0.2em] uppercase',
-    decorator: 'dot',
   },
   {
     name: 'coastline-contractors',
     displayName: 'Coastline Contractors',
     style: 'text-[18px] md:text-[22px] font-medium tracking-[0.02em] italic',
-    decorator: 'slash',
   },
   {
     name: 'foton-asesores',
@@ -55,7 +53,6 @@ const brands: BrandLogo[] = [
     name: 'pacific-united-power',
     displayName: 'PACIFIC UNITED',
     style: 'text-[20px] md:text-[24px] font-extrabold tracking-[0.16em] uppercase',
-    decorator: 'dot',
   },
   {
     name: 'ever-solar',
