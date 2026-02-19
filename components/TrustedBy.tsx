@@ -62,7 +62,7 @@ const brands: BrandLogo[] = [
     displayName: 'Ever Solar',
     style: '',
     logo: '/images/eversolar-logo.png',
-    logoHeight: 'h-[44px] md:h-[52px]',
+    logoHeight: 'h-[60px] md:h-[72px]',
   },
 ]
 
