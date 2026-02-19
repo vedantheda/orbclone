@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { useIsMobile, fadeIn } from '@/lib/motion'
 
 interface BrandLogo {
@@ -8,6 +9,7 @@ interface BrandLogo {
   displayName: string
   style: string
   decorator?: 'dot' | 'slash' | 'bar' | 'diamond' | 'circle'
+  logo?: string
 }
 
 const brands: BrandLogo[] = [
@@ -25,9 +27,9 @@ const brands: BrandLogo[] = [
   },
   {
     name: 'foton-asesores',
-    displayName: 'fotón asesores',
-    style: 'text-[20px] md:text-[24px] font-bold tracking-[0.08em] lowercase',
-    decorator: 'diamond',
+    displayName: 'Fotón Asesores',
+    style: '',
+    logo: '/images/foton-asesores-logo.webp',
   },
   {
     name: 'home-solutions',
@@ -43,14 +45,20 @@ const brands: BrandLogo[] = [
   {
     name: 'highland-seeds',
     displayName: 'Highland Seeds',
-    style: 'text-[19px] md:text-[23px] font-light tracking-[0.14em]',
-    decorator: 'bar',
+    style: '',
+    logo: '/images/highland-seeds-logo.png',
   },
   {
     name: 'pacific-united-power',
     displayName: 'PACIFIC UNITED',
     style: 'text-[20px] md:text-[24px] font-extrabold tracking-[0.16em] uppercase',
     decorator: 'dot',
+  },
+  {
+    name: 'ever-solar',
+    displayName: 'Ever Solar',
+    style: '',
+    logo: '/images/eversolar-logo.png',
   },
 ]
 
@@ -144,17 +152,27 @@ const TrustedBy = () => {
                     key={`${brand.name}-${index}`}
                     className="flex items-center px-6 md:px-10 shrink-0"
                   >
-                    <span
-                      className={`
-                        inline-flex items-center select-none whitespace-nowrap
-                        text-[#a3a3a3] hover:text-[#737373] transition-colors duration-300
-                        ${brand.style}
-                      `}
-                      aria-label={brand.name}
-                    >
-                      {brand.displayName}
-                      <Decorator type={brand.decorator} />
-                    </span>
+                    {brand.logo ? (
+                      <Image
+                        src={brand.logo}
+                        alt={brand.displayName}
+                        width={140}
+                        height={40}
+                        className="h-[28px] md:h-[34px] w-auto object-contain opacity-40 grayscale brightness-0 hover:opacity-60 transition-opacity duration-300"
+                      />
+                    ) : (
+                      <span
+                        className={`
+                          inline-flex items-center select-none whitespace-nowrap
+                          text-[#a3a3a3] hover:text-[#737373] transition-colors duration-300
+                          ${brand.style}
+                        `}
+                        aria-label={brand.name}
+                      >
+                        {brand.displayName}
+                        <Decorator type={brand.decorator} />
+                      </span>
+                    )}
                   </li>
                 ))}
               </ul>
