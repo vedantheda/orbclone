@@ -18,16 +18,40 @@ const brands: BrandLogo[] = [
     decorator: 'dot',
   },
   {
-    name: 'highland-seeds',
-    displayName: 'Highland Seeds',
+    name: 'coastline-contractors',
+    displayName: 'Coastline Contractors',
     style: 'text-[20px] md:text-[24px] font-bold tracking-[0.04em]',
-    decorator: 'bar',
+    decorator: 'slash',
   },
   {
     name: 'foton-asesores',
     displayName: 'Fotón Asesores',
     style: 'text-[20px] md:text-[24px] font-medium tracking-[0.06em] italic',
     decorator: 'diamond',
+  },
+  {
+    name: 'home-solutions',
+    displayName: 'Home Solutions',
+    style: 'text-[19px] md:text-[23px] font-semibold tracking-[0.08em]',
+    decorator: 'bar',
+  },
+  {
+    name: 'electrifies-solutions',
+    displayName: 'Electrifies Solutions',
+    style: 'text-[20px] md:text-[24px] font-bold tracking-[0.04em]',
+    decorator: 'circle',
+  },
+  {
+    name: 'highland-seeds',
+    displayName: 'Highland Seeds',
+    style: 'text-[20px] md:text-[24px] font-medium tracking-[0.06em]',
+    decorator: 'dot',
+  },
+  {
+    name: 'pacific-united-power',
+    displayName: 'Pacific United Power',
+    style: 'text-[19px] md:text-[23px] font-semibold tracking-[0.06em]',
+    decorator: 'slash',
   },
 ]
 
