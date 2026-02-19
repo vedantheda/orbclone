@@ -10,6 +10,7 @@ interface BrandLogo {
   style: string
   decorator?: 'dot' | 'slash' | 'bar' | 'diamond' | 'circle'
   logo?: string
+  logoHeight?: string
 }
 
 const brands: BrandLogo[] = [
@@ -30,6 +31,7 @@ const brands: BrandLogo[] = [
     displayName: 'Fotón Asesores',
     style: '',
     logo: '/images/foton-asesores-logo.webp',
+    logoHeight: 'h-[22px] md:h-[26px]',
   },
   {
     name: 'home-solutions',
@@ -47,6 +49,7 @@ const brands: BrandLogo[] = [
     displayName: 'Highland Seeds',
     style: '',
     logo: '/images/highland-seeds-logo.png',
+    logoHeight: 'h-[36px] md:h-[42px]',
   },
   {
     name: 'pacific-united-power',
@@ -59,6 +62,7 @@ const brands: BrandLogo[] = [
     displayName: 'Ever Solar',
     style: '',
     logo: '/images/eversolar-logo.png',
+    logoHeight: 'h-[44px] md:h-[52px]',
   },
 ]
 
@@ -156,9 +160,9 @@ const TrustedBy = () => {
                       <Image
                         src={brand.logo}
                         alt={brand.displayName}
-                        width={140}
-                        height={40}
-                        className="h-[28px] md:h-[34px] w-auto object-contain opacity-40 grayscale brightness-0 hover:opacity-60 transition-opacity duration-300"
+                        width={160}
+                        height={60}
+                        className={`${brand.logoHeight || 'h-[28px] md:h-[34px]'} w-auto object-contain opacity-40 grayscale brightness-0 hover:opacity-60 transition-opacity duration-300`}
                       />
                     ) : (
                       <span
